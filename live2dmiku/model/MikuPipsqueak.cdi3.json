@@ -1,0 +1,784 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "ParamAngleX",
+			"GroupId": "ParamGroup4",
+			"Name": "Angle X"
+		},
+		{
+			"Id": "ParamAngleY",
+			"GroupId": "ParamGroup4",
+			"Name": "Angle Y"
+		},
+		{
+			"Id": "ParamAngleZ",
+			"GroupId": "ParamGroup4",
+			"Name": "Angle Z"
+		},
+		{
+			"Id": "ParamEyeLOpen",
+			"GroupId": "ParamGroup2",
+			"Name": "EyeL Open"
+		},
+		{
+			"Id": "Param7",
+			"GroupId": "ParamGroup2",
+			"Name": "EyeL Bounce"
+		},
+		{
+			"Id": "Param16",
+			"GroupId": "ParamGroup2",
+			"Name": "EyeR Bounce"
+		},
+		{
+			"Id": "ParamEyeLSmile",
+			"GroupId": "ParamGroup2",
+			"Name": "EyeL Smile"
+		},
+		{
+			"Id": "ParamEyeROpen",
+			"GroupId": "ParamGroup2",
+			"Name": "EyeR Open"
+		},
+		{
+			"Id": "ParamEyeRSmile",
+			"GroupId": "ParamGroup2",
+			"Name": "EyeR Smile"
+		},
+		{
+			"Id": "ParamEyeBallX",
+			"GroupId": "ParamGroup2",
+			"Name": "Eyeball X"
+		},
+		{
+			"Id": "ParamEyeBallY",
+			"GroupId": "ParamGroup2",
+			"Name": "Eyeball Y"
+		},
+		{
+			"Id": "Param6",
+			"GroupId": "ParamGroup2",
+			"Name": "Angry"
+		},
+		{
+			"Id": "Param10",
+			"GroupId": "ParamGroup2",
+			"Name": "Sad"
+		},
+		{
+			"Id": "ParamBrowLY",
+			"GroupId": "ParamGroup2",
+			"Name": "BrowL Y"
+		},
+		{
+			"Id": "ParamBrowRY",
+			"GroupId": "ParamGroup2",
+			"Name": "BrowR Y"
+		},
+		{
+			"Id": "ParamBrowLAngle",
+			"GroupId": "ParamGroup2",
+			"Name": "BrowL Angle"
+		},
+		{
+			"Id": "ParamBrowRAngle",
+			"GroupId": "ParamGroup2",
+			"Name": "BrowR Angle"
+		},
+		{
+			"Id": "ParamBrowLForm",
+			"GroupId": "ParamGroup2",
+			"Name": "BrowL Form"
+		},
+		{
+			"Id": "ParamBrowRForm",
+			"GroupId": "ParamGroup2",
+			"Name": "BrowR Form"
+		},
+		{
+			"Id": "ParamMouthForm",
+			"GroupId": "ParamGroup6",
+			"Name": "Mouth Form"
+		},
+		{
+			"Id": "ParamMouthOpenY",
+			"GroupId": "ParamGroup6",
+			"Name": "Mouth Open"
+		},
+		{
+			"Id": "Param35",
+			"GroupId": "ParamGroup6",
+			"Name": "Mouth X"
+		},
+		{
+			"Id": "ParamBreath",
+			"GroupId": "ParamGroup",
+			"Name": "Breath"
+		},
+		{
+			"Id": "ParamBodyAngleX",
+			"GroupId": "ParamGroup",
+			"Name": "Body X"
+		},
+		{
+			"Id": "ParamBodyAngleY",
+			"GroupId": "ParamGroup",
+			"Name": "Body Y"
+		},
+		{
+			"Id": "ParamBodyAngleZ",
+			"GroupId": "ParamGroup",
+			"Name": "Body Z"
+		},
+		{
+			"Id": "Param22",
+			"GroupId": "ParamGroup",
+			"Name": "Arm Move"
+		},
+		{
+			"Id": "Param4",
+			"GroupId": "ParamGroup3",
+			"Name": "Stink Lines"
+		},
+		{
+			"Id": "Param8",
+			"GroupId": "ParamGroup3",
+			"Name": "Tears"
+		},
+		{
+			"Id": "Param9",
+			"GroupId": "ParamGroup3",
+			"Name": "Tear Animation"
+		},
+		{
+			"Id": "Param5",
+			"GroupId": "ParamGroup3",
+			"Name": "Big Eyes"
+		},
+		{
+			"Id": "Param15",
+			"GroupId": "ParamGroup3",
+			"Name": "Bald Toggle"
+		},
+		{
+			"Id": "Param23",
+			"GroupId": "ParamGroup3",
+			"Name": "Mic Toggle"
+		},
+		{
+			"Id": "Param46",
+			"GroupId": "ParamGroup3",
+			"Name": "mic tilt"
+		},
+		{
+			"Id": "Param24",
+			"GroupId": "ParamGroup3",
+			"Name": "Leek Toggle"
+		},
+		{
+			"Id": "Param26",
+			"GroupId": "ParamGroup3",
+			"Name": "Item Flair Toggle"
+		},
+		{
+			"Id": "Param47",
+			"GroupId": "ParamGroup3",
+			"Name": "Mic Size"
+		},
+		{
+			"Id": "Param50",
+			"GroupId": "ParamGroup3",
+			"Name": "Pigtail Toggle"
+		},
+		{
+			"Id": "Param48",
+			"GroupId": "ParamGroup3",
+			"Name": "Leek Spin Toggle"
+		},
+		{
+			"Id": "Param49",
+			"GroupId": "ParamGroup3",
+			"Name": "Leek Spin Automate"
+		},
+		{
+			"Id": "Param58",
+			"GroupId": "ParamGroup3",
+			"Name": "Cinnamoroll Hair"
+		},
+		{
+			"Id": "Param51",
+			"GroupId": "ParamGroup3",
+			"Name": "Bibinos Toggle"
+		},
+		{
+			"Id": "Param63",
+			"GroupId": "ParamGroup5",
+			"Name": "Cinna Bow Bounce1"
+		},
+		{
+			"Id": "Param64",
+			"GroupId": "ParamGroup5",
+			"Name": "Cinna Bow Bounce 2"
+		},
+		{
+			"Id": "Param55",
+			"GroupId": "ParamGroup5",
+			"Name": "Money Rotate"
+		},
+		{
+			"Id": "Param56",
+			"GroupId": "ParamGroup5",
+			"Name": "Money Rotate"
+		},
+		{
+			"Id": "Param57",
+			"GroupId": "ParamGroup5",
+			"Name": "Money Rotate"
+		},
+		{
+			"Id": "Param52",
+			"GroupId": "ParamGroup5",
+			"Name": "Bobbin Y"
+		},
+		{
+			"Id": "Param53",
+			"GroupId": "ParamGroup5",
+			"Name": "Bobbin X"
+		},
+		{
+			"Id": "Param54",
+			"GroupId": "ParamGroup5",
+			"Name": "Bobbin Come together"
+		},
+		{
+			"Id": "Param65",
+			"GroupId": "ParamGroup5",
+			"Name": "Cinna Bow Z"
+		},
+		{
+			"Id": "Param60",
+			"GroupId": "ParamGroup5",
+			"Name": "Cinna Hair Move"
+		},
+		{
+			"Id": "Param61",
+			"GroupId": "ParamGroup5",
+			"Name": "Cinna Move Hair 2"
+		},
+		{
+			"Id": "Param62",
+			"GroupId": "ParamGroup5",
+			"Name": "Cinna Hair Z"
+		},
+		{
+			"Id": "Param_Angle_Rotation59",
+			"GroupId": "ParamGroup5",
+			"Name": "[0]Cinna Pigtail"
+		},
+		{
+			"Id": "Param_Angle_Rotation60",
+			"GroupId": "ParamGroup5",
+			"Name": "[1]Cinna Pigtail"
+		},
+		{
+			"Id": "Param_Angle_Rotation61",
+			"GroupId": "ParamGroup5",
+			"Name": "[2]Cinna Pigtail"
+		},
+		{
+			"Id": "Param_Angle_Rotation62",
+			"GroupId": "ParamGroup5",
+			"Name": "[0]Cinna Pigtail"
+		},
+		{
+			"Id": "Param_Angle_Rotation63",
+			"GroupId": "ParamGroup5",
+			"Name": "[1]Cinna Pigtail"
+		},
+		{
+			"Id": "Param_Angle_Rotation64",
+			"GroupId": "ParamGroup5",
+			"Name": "[2]Cinna Pigtail"
+		},
+		{
+			"Id": "Param11",
+			"GroupId": "ParamGroup5",
+			"Name": "Stink Trail"
+		},
+		{
+			"Id": "Param29",
+			"GroupId": "ParamGroup5",
+			"Name": "Bang Bounce"
+		},
+		{
+			"Id": "Param25",
+			"GroupId": "ParamGroup5",
+			"Name": "Dots Scroll"
+		},
+		{
+			"Id": "Param30",
+			"GroupId": "ParamGroup5",
+			"Name": "Bang Move"
+		},
+		{
+			"Id": "Param31",
+			"GroupId": "ParamGroup5",
+			"Name": "Bang Move 2"
+		},
+		{
+			"Id": "Param32",
+			"GroupId": "ParamGroup5",
+			"Name": "Side Bang Bounce"
+		},
+		{
+			"Id": "Param17",
+			"GroupId": "ParamGroup5",
+			"Name": "Front Side Bang Move1"
+		},
+		{
+			"Id": "Param14",
+			"GroupId": "ParamGroup5",
+			"Name": "Front Side Bang move 2"
+		},
+		{
+			"Id": "Param18",
+			"GroupId": "ParamGroup5",
+			"Name": "Front Side bang bounce"
+		},
+		{
+			"Id": "Param33",
+			"GroupId": "ParamGroup5",
+			"Name": "Side Bang Move"
+		},
+		{
+			"Id": "Param34",
+			"GroupId": "ParamGroup5",
+			"Name": "Side Bang Move 2"
+		},
+		{
+			"Id": "Param27",
+			"GroupId": "ParamGroup5",
+			"Name": "Dress Physics"
+		},
+		{
+			"Id": "Param28",
+			"GroupId": "ParamGroup5",
+			"Name": "Dress Bounce"
+		},
+		{
+			"Id": "Param13",
+			"GroupId": "ParamGroup5",
+			"Name": "Stink Length"
+		},
+		{
+			"Id": "Param12",
+			"GroupId": "ParamGroup5",
+			"Name": "Stink Trail 2"
+		},
+		{
+			"Id": "Param3",
+			"GroupId": "ParamGroup5",
+			"Name": "Head Wiggle Horizontal"
+		},
+		{
+			"Id": "Param",
+			"GroupId": "ParamGroup5",
+			"Name": "Head Wiggle Top"
+		},
+		{
+			"Id": "Param2",
+			"GroupId": "ParamGroup5",
+			"Name": "Head Wiggle Verticle"
+		},
+		{
+			"Id": "Param19",
+			"GroupId": "ParamGroup5",
+			"Name": "Belt Bounce"
+		},
+		{
+			"Id": "Param20",
+			"GroupId": "ParamGroup5",
+			"Name": "Skirt Move"
+		},
+		{
+			"Id": "Param21",
+			"GroupId": "ParamGroup5",
+			"Name": "Leek Spin"
+		},
+		{
+			"Id": "Param36",
+			"GroupId": "ParamGroup5",
+			"Name": "Music Note1"
+		},
+		{
+			"Id": "Param37",
+			"GroupId": "ParamGroup5",
+			"Name": "Music Note2"
+		},
+		{
+			"Id": "Param38",
+			"GroupId": "ParamGroup5",
+			"Name": "Music note 3"
+		},
+		{
+			"Id": "Param39",
+			"GroupId": "ParamGroup5",
+			"Name": "music note 4"
+		},
+		{
+			"Id": "Param40",
+			"GroupId": "ParamGroup5",
+			"Name": "Music note 5"
+		},
+		{
+			"Id": "Param41",
+			"GroupId": "ParamGroup5",
+			"Name": "Music note 6"
+		},
+		{
+			"Id": "Param42",
+			"GroupId": "ParamGroup5",
+			"Name": "Muisc Note 7"
+		},
+		{
+			"Id": "Param43",
+			"GroupId": "ParamGroup5",
+			"Name": "Music Node 8"
+		},
+		{
+			"Id": "Param44",
+			"GroupId": "ParamGroup5",
+			"Name": "Music note 9"
+		},
+		{
+			"Id": "Param45",
+			"GroupId": "ParamGroup5",
+			"Name": "music note 10"
+		},
+		{
+			"Id": "Param_Angle_Rotation_1_L_Pigtail",
+			"GroupId": "ParamGroup8",
+			"Name": "[0]L_Pigtail"
+		},
+		{
+			"Id": "Param_Angle_Rotation_2_L_Pigtail",
+			"GroupId": "ParamGroup8",
+			"Name": "[1]L_Pigtail"
+		},
+		{
+			"Id": "Param_Angle_Rotation_3_L_Pigtail",
+			"GroupId": "ParamGroup8",
+			"Name": "[2]L_Pigtail"
+		},
+		{
+			"Id": "Param_Angle_Rotation_4_L_Pigtail",
+			"GroupId": "ParamGroup8",
+			"Name": "[3]L_Pigtail"
+		},
+		{
+			"Id": "Param_Angle_Rotation_5_L_Pigtail",
+			"GroupId": "ParamGroup8",
+			"Name": "[4]L_Pigtail"
+		},
+		{
+			"Id": "Param_Angle_Rotation_6_L_Pigtail",
+			"GroupId": "ParamGroup8",
+			"Name": "[5]L_Pigtail"
+		},
+		{
+			"Id": "Param_Angle_Rotation_7_L_Pigtail",
+			"GroupId": "ParamGroup8",
+			"Name": "[6]L_Pigtail"
+		},
+		{
+			"Id": "Param_Angle_Rotation_1_L_Pigtail9",
+			"GroupId": "ParamGroup7",
+			"Name": "[0]L_Pigtail"
+		},
+		{
+			"Id": "Param_Angle_Rotation_2_L_Pigtail9",
+			"GroupId": "ParamGroup7",
+			"Name": "[1]L_Pigtail"
+		},
+		{
+			"Id": "Param_Angle_Rotation_3_L_Pigtail9",
+			"GroupId": "ParamGroup7",
+			"Name": "[2]L_Pigtail"
+		},
+		{
+			"Id": "Param_Angle_Rotation_4_L_Pigtail9",
+			"GroupId": "ParamGroup7",
+			"Name": "[3]L_Pigtail"
+		},
+		{
+			"Id": "Param_Angle_Rotation_5_L_Pigtail9",
+			"GroupId": "ParamGroup7",
+			"Name": "[4]L_Pigtail"
+		},
+		{
+			"Id": "Param_Angle_Rotation_6_L_Pigtail9",
+			"GroupId": "ParamGroup7",
+			"Name": "[5]L_Pigtail"
+		},
+		{
+			"Id": "Param_Angle_Rotation_7_L_Pigtail9",
+			"GroupId": "ParamGroup7",
+			"Name": "[6]L_Pigtail"
+		},
+		{
+			"Id": "Param_Angle_Rotation7",
+			"GroupId": "ParamGroup9",
+			"Name": "[0]Tie"
+		},
+		{
+			"Id": "Param_Angle_Rotation8",
+			"GroupId": "ParamGroup9",
+			"Name": "[1]Tie"
+		},
+		{
+			"Id": "Param_Angle_Rotation9",
+			"GroupId": "ParamGroup9",
+			"Name": "[2]Tie"
+		}
+	],
+	"ParameterGroups": [
+		{
+			"Id": "ParamGroup4",
+			"GroupId": "",
+			"Name": "Head"
+		},
+		{
+			"Id": "ParamGroup2",
+			"GroupId": "",
+			"Name": "Eyes"
+		},
+		{
+			"Id": "ParamGroup6",
+			"GroupId": "",
+			"Name": "Mouth"
+		},
+		{
+			"Id": "ParamGroup",
+			"GroupId": "",
+			"Name": "Body"
+		},
+		{
+			"Id": "ParamGroup3",
+			"GroupId": "",
+			"Name": "Toggles"
+		},
+		{
+			"Id": "ParamGroup5",
+			"GroupId": "",
+			"Name": "Physics"
+		},
+		{
+			"Id": "ParamGroup8",
+			"GroupId": "",
+			"Name": "L_Pigtail"
+		},
+		{
+			"Id": "ParamGroup7",
+			"GroupId": "",
+			"Name": "R_Pigtail"
+		},
+		{
+			"Id": "ParamGroup9",
+			"GroupId": "",
+			"Name": "Tie"
+		}
+	],
+	"Parts": [
+		{
+			"Id": "Part10",
+			"Name": "Pipsqueak Miku bibinos eye fix.psd"
+		},
+		{
+			"Id": "Part9",
+			"Name": "Pipsqueak Miku bibinos.psd"
+		},
+		{
+			"Id": "Part4",
+			"Name": "Pipsqueak Miku Cinnabuns.psd (Corresponding layer not found)"
+		},
+		{
+			"Id": "Part7",
+			"Name": "Music Notes.psd"
+		},
+		{
+			"Id": "Part6",
+			"Name": "Pipsqueak Miku.psd (Corresponding layer not found)"
+		},
+		{
+			"Id": "Tie_Skinning",
+			"Name": "Tie(Skinning)"
+		},
+		{
+			"Id": "Part8",
+			"Name": "bbno$"
+		},
+		{
+			"Id": "Big_Eye",
+			"Name": "Big_Eye"
+		},
+		{
+			"Id": "Eye",
+			"Name": "Eye"
+		},
+		{
+			"Id": "Head",
+			"Name": "Head"
+		},
+		{
+			"Id": "Leggies",
+			"Name": "Leggies"
+		},
+		{
+			"Id": "L_Pigtail_Skinning",
+			"Name": "L_Pigtail(Skinning)"
+		},
+		{
+			"Id": "L_Pigtail_Skinning3",
+			"Name": "L_Pigtail(Skinning)"
+		},
+		{
+			"Id": "Part",
+			"Name": "L_Pigtail(Rotation)"
+		},
+		{
+			"Id": "L_Pigtail_Skinning2",
+			"Name": "L_Pigtail(Skinning)"
+		},
+		{
+			"Id": "L_Pigtail9_Skinning",
+			"Name": "L_Pigtail(Skinning)"
+		},
+		{
+			"Id": "Part2",
+			"Name": "L_Pigtail(Rotation)"
+		},
+		{
+			"Id": "Tail6_Skinning",
+			"Name": "Tail(Skinning)"
+		},
+		{
+			"Id": "Cinnamoroll",
+			"Name": "Cinnamoroll"
+		},
+		{
+			"Id": "Part5",
+			"Name": "Music Notes"
+		},
+		{
+			"Id": "Part3",
+			"Name": "R_Big_Eye"
+		},
+		{
+			"Id": "L_Big_Eye",
+			"Name": "L_Big_Eye"
+		},
+		{
+			"Id": "Mouth",
+			"Name": "Mouth"
+		},
+		{
+			"Id": "Bow",
+			"Name": "Bow"
+		},
+		{
+			"Id": "Folder3",
+			"Name": "Folder3"
+		},
+		{
+			"Id": "Folder4",
+			"Name": "Folder4"
+		},
+		{
+			"Id": "Folder5",
+			"Name": "Folder5"
+		},
+		{
+			"Id": "Folder6",
+			"Name": "Folder6"
+		},
+		{
+			"Id": "Folder7",
+			"Name": "Folder7"
+		},
+		{
+			"Id": "L_Big_Eye2",
+			"Name": "L_Big_Eye"
+		},
+		{
+			"Id": "Top_Lip_Folder",
+			"Name": "Top_Lip_Folder"
+		},
+		{
+			"Id": "Bottom_Lip_Folder",
+			"Name": "Bottom_Lip_Folder"
+		},
+		{
+			"Id": "Inside_Mouth",
+			"Name": "Inside_Mouth"
+		}
+	],
+	"CombinedParameters": [
+		[
+			"ParamAngleX",
+			"ParamAngleY"
+		],
+		[
+			"ParamEyeBallX",
+			"ParamEyeBallY"
+		],
+		[
+			"ParamBodyAngleX",
+			"ParamBodyAngleY"
+		],
+		[
+			"Param63",
+			"Param64"
+		],
+		[
+			"Param60",
+			"Param61"
+		],
+		[
+			"Param30",
+			"Param31"
+		],
+		[
+			"Param17",
+			"Param14"
+		],
+		[
+			"Param33",
+			"Param34"
+		],
+		[
+			"Param3",
+			"Param"
+		],
+		[
+			"Param36",
+			"Param37"
+		],
+		[
+			"Param38",
+			"Param39"
+		],
+		[
+			"Param40",
+			"Param41"
+		],
+		[
+			"Param42",
+			"Param43"
+		],
+		[
+			"Param44",
+			"Param45"
+		]
+	]
+}

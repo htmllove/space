@@ -1,0 +1,20 @@
+{
+    "Type": "Live2D Expression",
+    "Parameters": [
+        {
+            "Id": "ParamEyeLOpen",
+            "Value": -0.4043315052986145,
+            "Blend": "Add"
+        },
+        {
+            "Id": "ParamEyeROpen",
+            "Value": -0.40433192253112795,
+            "Blend": "Add"
+        },
+        {
+            "Id": "Param5",
+            "Value": 1.0,
+            "Blend": "Add"
+        }
+    ]
+}

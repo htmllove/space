@@ -1,0 +1,3231 @@
+
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>MikuClaude — интерфейс AI-ассистента по коду</title>
+
+    <!-- ===================== SEO ===================== -->
+    <meta name="description"
+        content="Современный интерфейс чата для AI-ассистента по коду MikuClaude: подсветка кода, темы оформления, удобная работа с диалогами.">
+    <meta name="keywords"
+        content="Claude Code, AI chat, чат с ИИ, ассистент по коду, программирование, code assistant, PWA">
+    <meta name="author" content="MikuClaude">
+    <meta name="robots" content="index, follow">
+    <meta name="color-scheme" content="light dark">
+    <link rel="canonical" href="https://mclaude1.vercel.app/">
+
+    <!-- ===================== Open Graph (Telegram, Facebook, LinkedIn) ===================== -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="MikuClaude">
+    <meta property="og:title" content="MikuClaude — интерфейс AI-ассистента по коду">
+    <meta property="og:description"
+        content="Современный интерфейс чата для AI-ассистента по коду MikuClaude: подсветка кода, темы оформления, удобная работа с диалогами.">
+    <meta property="og:url" content="https://mclaude1.vercel.app/">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:image" content="https://mclaude1.vercel.app/og-cover.png">
+    <meta property="og:image:secure_url" content="https://mclaude1.vercel.app/og-cover.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="MikuClaude — интерфейс AI-ассистента по коду">
+
+    <!-- ===================== Twitter / X (большая карточка) ===================== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MikuClaude — интерфейс AI-ассистента по коду">
+    <meta name="twitter:description"
+        content="Современный интерфейс чата для AI-ассистента по коду MikuClaude: подсветка кода, темы оформления, удобная работа с диалогами.">
+    <meta name="twitter:image" content="https://mclaude1.vercel.app/og-cover.png">
+    <meta name="twitter:image:alt" content="MikuClaude — интерфейс AI-ассистента по коду">
+
+    <!-- ===================== PWA ===================== -->
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#5b7cfa" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0f1320" media="(prefers-color-scheme: dark)">
+    <meta name="application-name" content="MikuClaude">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Claude Chat">
+    <link rel="icon" type="image/png" href="/icon-512.png">
+    <link rel="apple-touch-icon" href="/icon-512.png">
+    <style>
+        /* ===================== ТЕМЫ (CSS-переменные) ===================== */
+        :root {
+            --bg-body: #f5f7fb;
+            --bg-app: #ffffff;
+            --bg-panel: #ffffff;
+            --bg-chat: #fafcff;
+            --bg-elevated: #eef2f7;
+            --bg-hover: #f0f4fe;
+            --text: #1f2a3a;
+            --text-muted: #5a6e8a;
+            --border: #eaeef5;
+            --border-strong: #d0d9e8;
+            --accent: #5b7cfa;
+            --accent-hover: #4a6ae0;
+            --bubble-user-bg: #5b7cfa;
+            --bubble-user-text: #ffffff;
+            --bubble-assistant-bg: #eef2f7;
+            --bubble-assistant-text: #1f2a3a;
+            --danger: #ff6b6b;
+            --success: #28a745;
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            --code-bg: #1e2330;
+            --code-header-bg: #2a3142;
+            --code-text: #e6ebf5;
+            /* Глассморфизм (для режима с фоновым изображением) */
+            --glass-bg: rgba(255, 255, 255, 0.55);
+            --glass-panel: rgba(255, 255, 255, 0.4);
+            --glass-elevated: rgba(255, 255, 255, 0.35);
+            --neon: 0 0 22px rgba(123, 143, 255, 0.40), 0 0 55px rgba(180, 120, 255, 0.22);
+            --glass-border: rgba(255, 255, 255, 0.35);
+        }
+
+        html[data-theme="dark"] {
+            --bg-body: #0f1320;
+            --bg-app: #171c2b;
+            --bg-panel: #1b2233;
+            --bg-chat: #141a28;
+            --bg-elevated: #232c41;
+            --bg-hover: #2a344d;
+            --text: #e6ebf5;
+            --text-muted: #9aa7c0;
+            --border: #232c41;
+            --border-strong: #313c58;
+            --accent: #6d8bff;
+            --accent-hover: #859dff;
+            --bubble-user-bg: #4a6ae0;
+            --bubble-user-text: #ffffff;
+            --bubble-assistant-bg: #232c41;
+            --bubble-assistant-text: #e6ebf5;
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+            --code-bg: #11151f;
+            --code-header-bg: #1b2233;
+            --code-text: #e6ebf5;
+            --glass-bg: rgba(23, 28, 43, 0.55);
+            --glass-panel: rgba(27, 34, 51, 0.45);
+            --glass-elevated: rgba(35, 44, 65, 0.45);
+            --neon: 0 0 22px rgba(123, 143, 255, 0.5), 0 0 70px rgba(190, 120, 255, 0.30);
+            --glass-border: rgba(255, 255, 255, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-body);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: var(--text);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .app {
+            width: 95%;
+            max-width: 1500px;
+            height: 95vh;
+            background: var(--bg-app);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: row;
+            overflow: hidden;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        /* ===================== PWA / STANDALONE РЕЖИМ ===================== */
+        /* В установленном PWA контейнер занимает весь экран — без отступов и скруглений */
+        @media (display-mode: standalone),
+        (display-mode: fullscreen),
+        (display-mode: minimal-ui) {
+            body {
+                align-items: stretch;
+                justify-content: stretch;
+            }
+
+            .app {
+                width: 100%;
+                max-width: none;
+                height: 100vh;
+                height: 100dvh;
+                border-radius: 0;
+                box-shadow: none;
+            }
+        }
+
+        /* Запасной вариант для iOS Safari (navigator.standalone) */
+        body.pwa-standalone {
+            align-items: stretch;
+            justify-content: stretch;
+        }
+
+        body.pwa-standalone .app {
+            width: 100%;
+            max-width: none;
+            height: 100vh;
+            height: 100dvh;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        /* ===================== БОКОВАЯ ПАНЕЛЬ (ЧАТЫ) ===================== */
+        .sidebar {
+            width: 280px;
+            min-width: 280px;
+            background: var(--bg-panel);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            transition: margin-left 0.25s ease, background 0.3s;
+        }
+
+        .app.sidebar-collapsed .sidebar {
+            margin-left: -280px;
+        }
+
+        .sidebar-header {
+            padding: 16px 16px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header h3 {
+            font-size: 1rem;
+            color: var(--text);
+        }
+
+        .storage-meter {
+            margin: 0 16px 10px;
+            flex-shrink: 0;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .storage-meter .bar {
+            height: 6px;
+            border-radius: 6px;
+            background: var(--bg-elevated);
+            overflow: hidden;
+            margin-top: 4px;
+        }
+
+        .storage-meter .bar>span {
+            display: block;
+            height: 100%;
+            width: 0%;
+            background: var(--accent);
+            transition: width 0.3s, background 0.3s;
+        }
+
+        .storage-meter.warn .bar>span {
+            background: #f0ad4e;
+        }
+
+        .storage-meter.warn {
+            color: #c77c11;
+        }
+
+        .storage-meter.crit .bar>span {
+            background: var(--danger);
+        }
+
+        .storage-meter.crit {
+            color: var(--danger);
+        }
+
+        .chat-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 4px 10px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            scroll-behavior: smooth;
+        }
+
+        .chat-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-list::-webkit-scrollbar-thumb {
+            background: var(--border-strong);
+            border-radius: 8px;
+        }
+
+        .chat-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .chat-card {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 8px 10px 10px;
+            border-radius: 14px;
+            background: var(--bg-elevated);
+            cursor: pointer;
+            transition: background 0.15s, box-shadow 0.2s, transform 0.1s;
+            border: 1px solid transparent;
+            position: relative;
+        }
+
+        .chat-card:hover {
+            background: var(--bg-hover);
+        }
+
+        .chat-card.active {
+            border-color: var(--accent);
+            background: var(--bg-hover);
+        }
+
+        .chat-card .chat-pin {
+            cursor: pointer;
+            font-size: 0.85rem;
+            opacity: 0.35;
+            transition: opacity 0.15s, transform 0.15s;
+            flex-shrink: 0;
+            user-select: none;
+        }
+
+        .chat-card .chat-pin:hover {
+            opacity: 0.8;
+            transform: scale(1.15);
+        }
+
+        .chat-card.pinned .chat-pin {
+            opacity: 1;
+        }
+
+        .chat-card .chat-body {
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        .chat-card .chat-title {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chat-card .chat-snippet {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 2px;
+        }
+
+        .chat-card .chat-rename-input {
+            width: 100%;
+            font-size: 0.88rem;
+            font-weight: 600;
+            padding: 2px 4px;
+            border: 1px solid var(--accent);
+            border-radius: 6px;
+            background: var(--bg-app);
+            color: var(--text);
+            outline: none;
+        }
+
+        /* Колонка действий: сверху крестик, под ним клонирование */
+        .chat-card .chat-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            flex-shrink: 0;
+        }
+
+        .chat-card .chat-delete,
+        .chat-card .chat-clone {
+            cursor: pointer;
+            color: var(--text-muted);
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.15s, color 0.15s;
+            flex-shrink: 0;
+            padding: 0 4px;
+            font-size: 1rem;
+            line-height: 1.1;
+        }
+
+        .chat-card:hover .chat-delete,
+        .chat-card:hover .chat-clone {
+            opacity: 0.6;
+        }
+
+        .chat-card .chat-delete:hover {
+            color: var(--danger);
+            opacity: 1;
+        }
+
+        .chat-card .chat-clone:hover {
+            color: var(--accent);
+            opacity: 1;
+        }
+
+        @media (hover: none) {
+            .chat-card .chat-delete,
+            .chat-card .chat-clone { opacity: 0.55; }
+        }
+
+        .chat-empty {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-align: center;
+            padding: 24px 8px;
+        }
+
+        /* ===================== ОСНОВНАЯ КОЛОНКА ===================== */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .toolbar {
+            padding: 14px 22px;
+            background: var(--bg-panel);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 18px;
+            align-items: center;
+            flex-shrink: 0;
+            transition: background 0.3s;
+        }
+
+        .toolbar .group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        /* Когда кнопки навигации не помещаются в одну строку — показываем только иконки */
+        .toolbar.icons-only .btn-label,
+        .toolbar.icons-only #modelGroup label {
+            display: none;
+        }
+
+        .toolbar label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .toolbar select,
+        .toolbar input[type="text"] {
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border-strong);
+            background: var(--bg-app);
+            color: var(--text);
+            font-size: 0.9rem;
+            outline: none;
+            transition: 0.2s;
+            min-width: 170px;
+        }
+
+        .toolbar select:focus,
+        .toolbar input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(91, 124, 250, 0.2);
+        }
+
+        .btn {
+            padding: 6px 16px;
+            border-radius: 20px;
+            border: none;
+            background: var(--bg-elevated);
+            color: var(--text);
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+        }
+
+        .btn:hover {
+            background: var(--bg-hover);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: #fff;
+        }
+
+        .btn-danger:hover {
+            filter: brightness(0.92);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-strong);
+        }
+
+        .btn-outline:hover {
+            background: var(--bg-hover);
+        }
+
+        /* ===================== ОБЛАСТЬ ЧАТА ===================== */
+        .chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            background: var(--bg-chat);
+            position: relative;
+            transition: background 0.3s;
+        }
+
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            scroll-behavior: smooth;
+        }
+
+        .messages::-webkit-scrollbar {
+            width: 9px;
+        }
+
+        .messages::-webkit-scrollbar-thumb {
+            background: var(--border-strong);
+            border-radius: 8px;
+        }
+
+        .message {
+            max-width: 82%;
+            padding: 14px 20px;
+            border-radius: 18px;
+            line-height: 1.55;
+            word-break: break-word;
+            animation: fadeIn 0.2s ease;
+            position: relative;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background: var(--bubble-user-bg);
+            color: var(--bubble-user-text);
+            border-bottom-right-radius: 4px;
+        }
+
+        .message.user .msg-body { white-space: pre-wrap; }
+
+        /* ===== Шапка сообщения: роль + кнопки редактирования/удаления ===== */
+        .msg-head { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+        .msg-head .role-badge { margin-bottom: 0; flex: 1; min-width: 0; }
+        .msg-actions { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
+
+        .msg-action-btn {
+            background: transparent; border: none; cursor: pointer;
+            color: inherit; opacity: 0; padding: 2px 5px; border-radius: 8px;
+            font-size: 0.85rem; line-height: 1; transition: opacity 0.15s, background 0.15s;
+        }
+        .message:hover .msg-action-btn,
+        .message:focus-within .msg-action-btn { opacity: 0.65; }
+        .msg-action-btn:hover { opacity: 1; background: rgba(127, 127, 127, 0.22); }
+        .msg-action-btn[data-act="del"]:hover { color: var(--danger); }
+
+        /* На тач-устройствах кнопки видны всегда (нет hover) */
+        @media (hover: none) {
+            .msg-action-btn { opacity: 0.7; font-size: 1rem; padding: 4px 7px; }
+        }
+
+        /* ===== Режим редактирования ===== */
+        .msg-edit-area {
+            width: 100%; min-height: 84px; resize: vertical;
+            font: inherit; line-height: 1.5; color: var(--text);
+            background: var(--bg-elevated); border: 2px solid var(--accent);
+            border-radius: 12px; padding: 10px 12px; margin-top: 4px;
+        }
+        .msg-edit-actions { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+        .msg-edit-hint { font-size: 0.72rem; opacity: 0.6; margin-top: 6px; }
+
+        .message.assistant {
+            align-self: flex-start;
+            background: var(--bubble-assistant-bg);
+            color: var(--bubble-assistant-text);
+            border-bottom-left-radius: 4px;
+        }
+
+        .message .role-badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            opacity: 0.6;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .message .model-badge {
+            font-size: 0.65rem;
+            opacity: 0.5;
+            margin-top: 8px;
+            display: block;
+            font-style: italic;
+        }
+
+        .stream-cursor::after {
+            content: "▍";
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Markdown внутри ответа --- */
+        .md>*:first-child {
+            margin-top: 0;
+        }
+
+        .md>*:last-child {
+            margin-bottom: 0;
+        }
+
+        .md p {
+            margin: 0.5em 0;
+        }
+
+        .md h1,
+        .md h2,
+        .md h3,
+        .md h4,
+        .md h5,
+        .md h6 {
+            margin: 0.7em 0 0.4em;
+            line-height: 1.3;
+        }
+
+        .md h1 {
+            font-size: 1.5em;
+        }
+
+        .md h2 {
+            font-size: 1.3em;
+        }
+
+        .md h3 {
+            font-size: 1.15em;
+        }
+
+        .md h4 {
+            font-size: 1.05em;
+        }
+
+        .md h5,
+        .md h6 {
+            font-size: 1em;
+        }
+
+        .md ul,
+        .md ol {
+            margin: 0.5em 0;
+            padding-left: 1.6em;
+        }
+
+        .md li {
+            margin: 0.2em 0;
+        }
+
+        .md a {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        .md blockquote {
+            margin: 0.6em 0;
+            padding: 0.3em 0.9em;
+            border-left: 3px solid var(--accent);
+            opacity: 0.85;
+            background: rgba(127, 127, 127, 0.08);
+            border-radius: 6px;
+        }
+
+        .md hr {
+            border: none;
+            border-top: 1px solid var(--border-strong);
+            margin: 0.8em 0;
+        }
+
+        .md code.inline-code {
+            background: rgba(127, 127, 127, 0.18);
+            padding: 0.1em 0.4em;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.88em;
+        }
+
+        .md strong {
+            font-weight: 700;
+        }
+
+        .md table {
+            border-collapse: collapse;
+            margin: 0.6em 0;
+        }
+
+        .md th,
+        .md td {
+            border: 1px solid var(--border-strong);
+            padding: 4px 10px;
+        }
+
+        /* --- Блок кода --- */
+        .code-block {
+            margin: 0.7em 0;
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--code-bg);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 10px 6px 14px;
+            background: var(--code-header-bg);
+        }
+
+        .code-header .code-lang {
+            font-size: 0.72rem;
+            color: #aab6d4;
+            font-family: monospace;
+            text-transform: lowercase;
+            letter-spacing: 0.5px;
+        }
+
+        .code-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .code-btn {
+            background: rgba(255, 255, 255, 0.08);
+            color: #d7deef;
+            border: none;
+            border-radius: 8px;
+            padding: 3px 9px;
+            font-size: 0.72rem;
+            cursor: pointer;
+            transition: background 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .code-btn:hover {
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        .code-block pre {
+            margin: 0;
+            padding: 12px 14px;
+            overflow-x: auto;
+        }
+
+        .code-block pre code {
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.85rem;
+            color: var(--code-text);
+            line-height: 1.5;
+            white-space: pre;
+        }
+
+        .code-block pre::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .code-block pre::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+        }
+
+        /* --- Вложения в сообщении --- */
+        .msg-attachments {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .msg-attachments img {
+            max-width: 180px;
+            max-height: 180px;
+            border-radius: 10px;
+            display: block;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .msg-file {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(127, 127, 127, 0.18);
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
+
+        /* ===================== ВВОД ===================== */
+        .compose {
+            background: var(--bg-panel);
+            border-top: 1px solid var(--border);
+            flex-shrink: 0;
+            transition: background 0.3s;
+        }
+
+        .attachments-bar {
+            display: none;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 12px 24px 0;
+        }
+
+        .attachments-bar.active {
+            display: flex;
+        }
+
+        .attach-chip {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-strong);
+            border-radius: 12px;
+            padding: 6px 8px 6px 6px;
+            font-size: 0.8rem;
+            max-width: 220px;
+        }
+
+        .attach-chip img {
+            width: 36px;
+            height: 36px;
+            object-fit: cover;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .attach-chip .attach-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-hover);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .attach-chip .attach-name {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: var(--text);
+        }
+
+        .attach-chip .attach-remove {
+            cursor: pointer;
+            color: var(--danger);
+            font-weight: bold;
+            padding: 0 4px;
+            flex-shrink: 0;
+        }
+
+        .input-area {
+            padding: 12px 24px 20px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .input-area textarea {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 24px;
+            border: 1px solid var(--border-strong);
+            background: var(--bg-app);
+            color: var(--text);
+            resize: none;
+            font-family: inherit;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            min-height: 52px;
+            max-height: 50vh;
+        }
+
+        .input-area textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(91, 124, 250, 0.2);
+        }
+
+        .input-area .btn {
+            padding: 0 24px;
+            border-radius: 40px;
+            font-size: 1rem;
+            height: 52px;
+        }
+
+        .icon-btn {
+            width: 52px;
+            height: 52px;
+            min-width: 52px;
+            padding: 0;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            justify-content: center;
+        }
+
+        .drop-overlay {
+            display: none;
+            position: absolute;
+            inset: 0;
+            background: rgba(91, 124, 250, 0.12);
+            border: 3px dashed var(--accent);
+            border-radius: 12px;
+            z-index: 50;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--accent);
+            pointer-events: none;
+        }
+
+        .drop-overlay.active {
+            display: flex;
+        }
+
+        /* ===================== МОДАЛЬНЫЕ ОКНА ===================== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-app);
+            color: var(--text);
+            border-radius: 28px;
+            padding: 32px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+            animation: modalIn 0.2s ease;
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal h2 {
+            margin-bottom: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .modal textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 16px;
+            border: 1px solid var(--border-strong);
+            background: var(--bg-app);
+            color: var(--text);
+            font-family: monospace;
+            font-size: 0.9rem;
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .modal .token-list {
+            margin: 16px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .token-rotation-option {
+            display: flex; align-items: flex-start; gap: 10px; margin-top: 12px;
+            padding: 10px 12px; border: 1px solid var(--border-strong);
+            border-radius: 14px; background: var(--bg-elevated);
+            color: var(--text); font-size: 0.88rem; line-height: 1.45; cursor: pointer;
+        }
+        .token-rotation-option input { width: 18px; height: 18px; margin-top: 1px; accent-color: var(--accent); flex-shrink: 0; }
+
+        .modal .token-badge {
+            background: var(--bg-elevated);
+            padding: 4px 14px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal .token-badge .remove-token {
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--danger);
+        }
+
+        .modal .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .modal code {
+            background: var(--bg-elevated);
+            padding: 1px 6px;
+            border-radius: 6px;
+        }
+
+        /* ===================== ПРИВЕТСТВЕННЫЙ БАННЕР (Мику) ===================== */
+        .welcome-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(10, 20, 26, 0.62);
+            backdrop-filter: blur(6px);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .welcome-overlay.active {
+            display: flex;
+        }
+
+        .welcome-card {
+            --miku-teal: #39c5bb;
+            --miku-deep: #178f89;
+            --miku-pink: #ff6fae;
+            background: var(--bg-app);
+            color: var(--text);
+            border: 2px solid var(--miku-teal);
+            border-radius: 28px;
+            width: 100%;
+            max-width: 640px;
+            max-height: 88vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 70px rgba(23, 143, 137, 0.45);
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            padding: 28px;
+            animation: modalIn 0.25s ease;
+        }
+
+        .welcome-sticker {
+            flex-shrink: 0;
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            filter: drop-shadow(0 8px 18px rgba(23, 143, 137, 0.35));
+        }
+
+        .welcome-body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .welcome-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: var(--miku-deep);
+        }
+
+        .welcome-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .welcome-text a {
+            color: var(--miku-pink);
+            font-weight: 700;
+            text-decoration: underline;
+        }
+
+        .welcome-alert {
+            margin-top: 14px;
+            padding: 12px 14px;
+            border-radius: 14px;
+            background: rgba(57, 197, 187, 0.12);
+            border-left: 4px solid var(--miku-teal);
+            font-size: 0.9rem;
+            line-height: 1.55;
+            color: var(--text);
+        }
+
+        .welcome-required {
+            margin-top: 12px;
+            font-weight: 700;
+            color: var(--miku-deep);
+            text-decoration: underline;
+        }
+
+        .welcome-required u {
+            text-underline-offset: 3px;
+        }
+
+        .welcome-signature {
+            margin-top: 12px;
+            font-weight: 700;
+            color: var(--miku-pink);
+        }
+
+        .welcome-hint {
+            margin-top: 12px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            min-height: 1.1em;
+        }
+
+        @media (max-width: 640px) {
+            .welcome-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 16px;
+                padding: 22px;
+            }
+
+            .welcome-sticker {
+                order: 3;
+                width: 140px;
+                height: 140px;
+                margin: 0 auto;
+            }
+
+            .welcome-body {
+                order: 1;
+            }
+
+            .welcome-text a {
+                word-break: break-word;
+            }
+
+            .welcome-alert {
+                text-align: left;
+            }
+        }
+
+        /* Настройки стиля */
+        .setting-row {
+            margin-bottom: 22px;
+        }
+
+        .setting-row>.setting-label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .theme-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .theme-opt {
+            flex: 1;
+            min-width: 90px;
+            text-align: center;
+            padding: 12px;
+            border-radius: 14px;
+            border: 2px solid var(--border-strong);
+            cursor: pointer;
+            transition: 0.15s;
+            background: var(--bg-elevated);
+        }
+
+        .theme-opt.active {
+            border-color: var(--accent);
+            background: var(--bg-hover);
+        }
+
+        .theme-opt .swatch {
+            height: 30px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .bg-preview {
+            width: 100%;
+            height: 120px;
+            border-radius: 14px;
+            background-size: cover;
+            background-position: center;
+            border: 1px dashed var(--border-strong);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            background-color: var(--bg-elevated);
+        }
+
+        /* Провайдеры */
+        .provider-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        @media (max-width: 460px) {
+            .provider-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .provider-card {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 10px 12px;
+            border-radius: 14px;
+            border: 2px solid var(--border-strong);
+            background: var(--bg-elevated);
+            cursor: pointer;
+            transition: 0.15s;
+            min-width: 0;
+        }
+
+        .provider-card:hover {
+            background: var(--bg-hover);
+        }
+
+        .provider-card.active {
+            border-color: var(--accent);
+            background: var(--bg-hover);
+        }
+
+        .provider-card .provider-card-top {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .provider-card .provider-radio {
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .provider-card .provider-card-name {
+            font-weight: 600;
+            flex: 1;
+            min-width: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .provider-card .provider-card-url {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .provider-card .provider-card-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .provider-card .provider-card-desc a {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        .provider-card .provider-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .provider-card .provider-delete {
+            cursor: pointer;
+            color: var(--danger);
+            font-weight: bold;
+            padding: 0 4px;
+            flex-shrink: 0;
+        }
+
+        .provider-form {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .provider-form input {
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid var(--border-strong);
+            background: var(--bg-app);
+            color: var(--text);
+            font-size: 0.9rem;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .provider-form input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(91, 124, 250, 0.2);
+        }
+
+        .status-badge {
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 40px;
+            background: var(--bg-elevated);
+            color: var(--text);
+        }
+
+        .status-badge.active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-badge.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .status-badge.warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid var(--bg-elevated);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ===================== ГЛАССМОРФИЗМ (при фоновом изображении) ===================== */
+        body.has-bg .app {
+            background: var(--glass-bg);
+            backdrop-filter: blur(22px) saturate(1.25);
+            -webkit-backdrop-filter: blur(22px) saturate(1.25);
+            box-shadow: var(--neon);
+            border: 1px solid var(--glass-border);
+        }
+
+        body.has-bg .sidebar,
+        body.has-bg .toolbar,
+        body.has-bg .compose,
+        body.has-bg .chat-area {
+            background: transparent;
+        }
+
+        body.has-bg .sidebar {
+            border-right-color: var(--glass-border);
+        }
+
+        body.has-bg .toolbar {
+            border-bottom-color: var(--glass-border);
+        }
+
+        body.has-bg .compose {
+            border-top-color: var(--glass-border);
+        }
+
+        body.has-bg .chat-card {
+            background: var(--glass-elevated);
+            backdrop-filter: blur(8px);
+        }
+
+        body.has-bg .chat-card.active {
+            box-shadow: var(--neon);
+        }
+
+        body.has-bg .message.assistant {
+            background: var(--glass-elevated);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--neon);
+            border: 1px solid var(--glass-border);
+        }
+
+        body.has-bg .message.user {
+            box-shadow: var(--neon);
+        }
+
+        body.has-bg .input-area textarea,
+        body.has-bg .toolbar select {
+            background: var(--glass-elevated);
+            backdrop-filter: blur(8px);
+        }
+
+        body.has-bg .btn-outline {
+            background: var(--glass-elevated);
+        }
+
+        /* ===================== МОБИЛЬНАЯ ВЕРСИЯ ===================== */
+        .sidebar-backdrop {
+            display: none;
+        }
+
+        @media (max-width: 760px) {
+            body {
+                align-items: stretch;
+                justify-content: stretch;
+            }
+
+            .app {
+                width: 100%;
+                max-width: none;
+                height: 100vh;
+                height: 100dvh;
+                /* 100dvh учитывает адресную строку */
+                border-radius: 0;
+            }
+
+            /* Сайдбар — выезжающая панель поверх контента */
+            .sidebar {
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 120;
+                height: 100%;
+                width: 84%;
+                min-width: 0;
+                max-width: 330px;
+                box-shadow: var(--shadow);
+            }
+
+            .app.sidebar-collapsed .sidebar {
+                margin-left: -110%;
+            }
+
+            .sidebar-backdrop {
+                display: block;
+                position: absolute;
+                inset: 0;
+                z-index: 110;
+                background: rgba(0, 0, 0, 0.45);
+                backdrop-filter: blur(2px);
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.25s;
+            }
+
+            .app:not(.sidebar-collapsed) .sidebar-backdrop {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            /* Тулбар: одна компактная строка, кнопки — только иконки */
+            .toolbar {
+                padding: 8px 10px;
+                gap: 6px 8px;
+            }
+
+            .toolbar .group {
+                gap: 6px;
+            }
+
+            #modelGroup {
+                flex: 1 1 auto;
+                min-width: 0;
+            }
+
+            #modelGroup label {
+                display: none;
+            }
+
+            #modelGroup select {
+                flex: 1;
+                min-width: 0;
+                font-size: 13px;
+                padding: 7px 8px;
+            }
+
+            .toolbar select {
+                min-width: 0;
+            }
+
+            .btn-label {
+                display: none;
+            }
+
+            /* убираем текст у кнопок — остаются иконки */
+            .status-badge {
+                display: none;
+            }
+
+            /* статус скрыт ради компактности */
+            .btn {
+                padding: 7px 10px;
+            }
+
+            #toggleSidebarBtn {
+                padding: 7px 11px;
+            }
+
+            /* Чат */
+            .messages {
+                padding: 16px 14px;
+                gap: 14px;
+            }
+
+            .message {
+                max-width: 92%;
+                padding: 12px 15px;
+            }
+
+            .code-block pre code {
+                font-size: 0.8rem;
+            }
+
+            /* Ввод */
+            .attachments-bar {
+                padding: 10px 12px 0;
+            }
+
+            .input-area {
+                padding: 10px 12px 14px;
+                gap: 8px;
+            }
+
+            .input-area textarea {
+                font-size: 16px;
+                min-height: 48px;
+                max-height: 65vh;
+                padding: 11px 14px;
+            }
+
+            /* 16px — без авто-зума iOS */
+            .input-area .btn {
+                height: 48px;
+            }
+
+            .icon-btn {
+                width: 48px;
+                height: 48px;
+                min-width: 48px;
+            }
+
+            #sendBtn {
+                padding: 0 18px;
+            }
+
+            /* Модалки */
+            .modal {
+                padding: 22px 18px;
+                border-radius: 22px;
+                max-height: 92vh;
+            }
+
+            .modal h2 {
+                font-size: 1.2rem;
+            }
+
+            .theme-opt {
+                padding: 10px 6px;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Сенсорные устройства (нет hover): кнопки действий всегда видны */
+        @media (hover: none) {
+            .chat-card .chat-delete {
+                opacity: 0.55;
+            }
+
+            .chat-card:hover .chat-delete {
+                opacity: 0.55;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app" id="app">
+        <!-- ===== Боковая панель чатов ===== -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h3>💬 Чаты</h3>
+                <button class="btn btn-primary" id="newChatBtn" title="Новый чат">➕ Новый</button>
+            </div>
+            <div class="storage-meter" id="storageMeter" title="Использование localStorage">
+                <span id="storageText">Хранилище: 0%</span>
+                <div class="bar"><span id="storageBar"></span></div>
+            </div>
+            <div class="chat-list" id="chatList"></div>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+        <!-- ===== Основная колонка ===== -->
+        <div class="main">
+            <div class="toolbar">
+                <button class="btn btn-outline icon-btn" id="toggleSidebarBtn" title="Скрыть/показать список чатов"
+                    style="width:auto;height:auto;border-radius:20px;font-size:1rem;padding:6px 12px;">☰</button>
+                <button class="btn btn-outline" id="providerBtn" title="Провайдер API">🌐 <span class="btn-label"
+                        id="providerName">Freemodel</span></button>
+                <div class="group" id="modelGroup">
+                    <label>🤖</label>
+                    <select id="modelSelect">
+                        <option value="claude-opus-4-8">claude-opus-4-8 (ручная)</option>
+                        <option value="" disabled>─ Загрузка моделей... ─</option>
+                    </select>
+                    <button class="btn btn-outline" id="refreshModelsBtn" title="Обновить список моделей">🔄</button>
+                </div>
+                <div class="group">
+                    <button class="btn btn-outline" id="manageTokensBtn" title="Управление токенами">🔑 <span
+                            id="tokenCount">0</span><span class="btn-label"> Токены</span></button>
+                </div>
+                <div class="group" style="margin-left: auto;">
+                    <button class="btn btn-outline" id="settingsBtn" title="Настройки стиля">🎨 <span
+                            class="btn-label">Стиль</span></button>
+                    <span id="statusBadge" class="status-badge">Готов</span>
+                </div>
+            </div>
+
+            <div class="chat-area" id="chatArea">
+                <div class="drop-overlay" id="dropOverlay">📎 Отпустите, чтобы прикрепить файлы</div>
+                <div class="messages" id="messagesContainer"></div>
+                <div class="compose">
+                    <div class="attachments-bar" id="attachmentsBar"></div>
+                    <div class="input-area">
+                        <input type="file" id="fileInput" multiple hidden
+                            accept="image/*,application/pdf,.txt,.md,.json,.js,.ts,.py,.html,.css,.csv,.xml,.yaml,.yml,.log">
+                        <button class="btn btn-outline icon-btn" id="attachBtn" title="Прикрепить файлы">📎</button>
+                        <textarea id="userInput" rows="1"
+                            placeholder="Введите сообщение... (Shift+Enter — перенос, можно вставить/перетащить файлы)"></textarea>
+                        <button class="btn btn-primary" id="sendBtn">➤ <span class="btn-label">Отправить</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Модальное окно: токены ===== -->
+    <div class="modal-overlay" id="tokenModal">
+        <div class="modal">
+            <h2><span>🔑 Управление токенами</span><button class="close-btn" data-close>&times;</button></h2>
+            <p style="color: var(--text-muted); margin-bottom: 12px;">
+                Добавьте API-ключи (каждый с новой строки). Используются заголовки
+                <code>authorization: Bearer</code> и <code>x-api-key</code>.
+            </p>
+            <textarea id="tokenInput" placeholder="fe_oa_...&#10;fe_oa_..."></textarea>
+            <label class="token-rotation-option">
+                <input type="checkbox" id="keepExhaustedTokens">
+                <span>Не удалять токен, если лимит ИИ-токенов аккаунта исчерпан. Продолжать ротацию по остальным токенам.</span>
+            </label>
+            <div class="token-list" id="tokenListContainer"></div>
+            <div class="actions">
+                <button class="btn btn-primary" id="addTokensBtn">➕ Добавить</button>
+                <button class="btn btn-danger" id="clearTokensBtn">🗑️ Удалить все</button>
+                <button class="btn btn-outline" data-close>Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Модальное окно: провайдер API ===== -->
+    <div class="modal-overlay" id="providerModal">
+        <div class="modal">
+            <h2><span>🌐 Провайдер API</span><button class="close-btn" data-close>&times;</button></h2>
+            <p style="color: var(--text-muted); margin-bottom: 14px;">
+                У каждого провайдера своё хранилище токенов. При переключении подгружаются
+                токены выбранного провайдера.
+            </p>
+            <div class="provider-list" id="providerList"></div>
+            <h3 style="margin: 20px 0 10px; font-size: 1rem;">➕ Добавить своего провайдера</h3>
+            <div class="provider-form">
+                <input type="text" id="newProviderName" placeholder="Название (напр. MyProxy)">
+                <input type="text" id="newProviderUrl" placeholder="https://api.example.com">
+                <input type="text" id="newProviderDesc"
+                    placeholder="Примечание / ссылка для регистрации (необязательно)">
+                <button class="btn btn-primary" id="addProviderBtn">Добавить провайдера</button>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 12px;">
+                ⚠️ Хост нового провайдера нужно добавить в whitelist твоего CORS-прокси
+                (<code>ALLOWED_HOSTS</code> в <code>worker.js</code>/<code>proxy.js</code>).
+            </p>
+        </div>
+    </div>
+
+    <!-- ===== Модальное окно: настройки стиля ===== -->
+    <div class="modal-overlay" id="settingsModal">
+        <div class="modal">
+            <h2><span>🎨 Настройки стиля</span><button class="close-btn" data-close>&times;</button></h2>
+
+            <div class="setting-row">
+                <span class="setting-label">Цветовая схема</span>
+                <div class="theme-options" id="themeOptions">
+                    <div class="theme-opt" data-theme-value="auto">
+                        <div class="swatch" style="background:linear-gradient(90deg,#f5f7fb 50%,#171c2b 50%);"></div>
+                        Авто
+                    </div>
+                    <div class="theme-opt" data-theme-value="light">
+                        <div class="swatch" style="background:#f5f7fb;border:1px solid #d0d9e8;"></div>Светлая
+                    </div>
+                    <div class="theme-opt" data-theme-value="dark">
+                        <div class="swatch" style="background:#171c2b;"></div>Тёмная
+                    </div>
+                </div>
+            </div>
+
+            <div class="setting-row">
+                <span class="setting-label">Фоновое изобра��ение (cover)</span>
+                <div class="bg-preview" id="bgPreview">Фон не задан</div>
+                <input type="file" id="bgFileInput" accept="image/*" hidden>
+                <div class="actions" style="margin-top:0;">
+                    <button class="btn btn-primary" id="chooseBgBtn">🖼️ Загрузить фон</button>
+                    <button class="btn btn-outline" id="removeBgBtn">Убрать фон</button>
+                </div>
+                <p style="color: var(--text-muted); font-size:0.8rem; margin-top:10px;">
+                    При загрузке фона включается «глассморфизм» и мягкие неоновые тени — уютная
+                    атмосфера для Role Play. Изображение сжимается перед сохранением.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== Приве��ственный баннер (Мику) ===================== -->
+    <div class="welcome-overlay" id="welcomeOverlay" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+        <div class="welcome-card">
+            <img src="/miku-sticker.png" alt="Стикер Мику" class="welcome-sticker" id="welcomeSticker">
+            <div class="welcome-body">
+                <div class="welcome-title" id="welcomeTitle">Подожди, минутку!</div>
+                <div class="welcome-text">
+                    Этот сервис предоставляется бесплатно и всегда будет бесплатен пока это возможно.
+                    Воля поставщиков API от меня не зависит, но ты можешь сам добавить свой сервис в
+                    список и он будет только для тебя. Подпишись на наш
+                    <a href="https://t.me/+MmvBFHKpOyZjYjAy" target="_blank" rel="noopener noreferrer"
+                        data-welcome-link>канал в Telegram</a>
+                    чтобы знать об обновлениях и новых фичах или сделай небольшой
+                    <a href="https://donationalerts.ru/uwusha123" target="_blank" rel="noopener noreferrer"
+                        data-welcome-link>донат</a>
+                    если тебе понравился наш сервис.
+                </div>
+                <div class="welcome-required"><u>Чтобы продолжить пользоваться сервисом, выбери донат или подписку на
+                        канал.</u></div>
+                <div class="welcome-alert">
+                    У нас тут честная политика использования, пользуйтесь аккуратно и с умом.
+                    И давайте помогать друг другу делать сервис уютнее. &gt;.&lt;
+                </div>
+                <div class="welcome-signature">Все будет Мику! ~ &lt;3</div>
+                <div class="welcome-hint" id="welcomeHint"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            "use strict";
+
+            // --- Конфигурация ---
+            // CORS-прокси: целевой URL передаётся как ?url=<полный_url> (URL-кодированный).
+            // Локально (file:// или localhost) — локальный proxy.js (node proxy.js / npm start).
+            // На хостинге — внешний Worker на workers.dev. Оба подменяют user-agent на claude-cli.
+            const LOCAL_PROXY = 'http://localhost:4345/?url=';
+            const REMOTE_PROXY = 'https://mikuclaude.pcmyonelove.workers.dev/?url=';
+            const CORS_PROXY = (function () {
+                const h = location.hostname;
+                const isLocal = location.protocol === 'file:' ||
+                    h === 'localhost' || h === '127.0.0.1' || h === '[::1]' || h === '';
+                return isLocal ? LOCAL_PROXY : REMOTE_PROXY;
+            })();
+            // Предустановленные провайдеры. Свои добавляются в UI и хранятся в localStorage.
+            const PRESET_PROVIDERS = [
+                { id: 'freemodel', name: 'Freemodel', baseUrl: 'https://cc.freemodel.dev', builtin: true },
+                { id: 'agentrouter', name: 'AgentRouter', baseUrl: 'https://agentrouter.org', builtin: true },
+                {
+                    id: 'aerolink', name: 'AeroLink', baseUrl: 'https://capi.aerolink.lat', builtin: true,
+                    desc: 'Получить токены можно — <a href="https://aerolink.lat/register?ref=7WEV4YS" target="_blank" rel="noopener noreferrer">по рефферальной ссылке</a>.'
+                },
+                {
+                    id: 'claude_shop_api_bot', name: '@claude_shop_api_bot', baseUrl: 'https://api.agentai.surf', builtin: true,
+                    desc: 'Получить токены можно — <a href="https://t.me/claude_shop_api_bot?start=ref_SE3XDYTK" target="_blank" rel="noopener noreferrer">по рефферальной ссылке</a>.'
+                },
+                {
+                    id: 'sh00tapi1', name: 'Sh00t API', baseUrl: 'https://sh00t.host', builtin: true,
+                    desc: 'Получить токены можно — <a href="https://sh00t.host/ref/chetaisiya38" target="_blank" rel="noopener noreferrer">по рефферальной ссылке</a>.'
+                },
+            ];
+            const API_VERSION = '2023-06-01';
+            // Полный набор бет (как у Claude Code) — для продвинутых моделей, чтобы они
+            // работали в полную силу (1M-контекст, adaptive thinking и т.д.).
+            const ANTHROPIC_BETA_FULL = 'claude-code-20250219,context-1m-2025-08-07,interleaved-thinking-2025-05-14,redact-thinking-2026-02-12,context-management-2025-06-27,prompt-caching-scope-2026-01-05,mid-conversation-system-2026-04-07,effort-2025-11-24';
+            // Набор для Haiku: без 1M-контекста (даёт «long context beta not available» на
+            // некоторых подписках). Параметры thinking/effort для Haiku не шлются в теле.
+            const ANTHROPIC_BETA_HAIKU = 'claude-code-20250219,interleaved-thinking-2025-05-14,redact-thinking-2026-02-12,context-management-2025-06-27,prompt-caching-scope-2026-01-05,mid-conversation-system-2026-04-07,effort-2025-11-24';
+            // Модели без поддержки adaptive thinking / effort / 1M-беты.
+            const isLiteModel = (model) => /haiku/i.test(model || '');
+            const betaFor = (model) => isLiteModel(model) ? ANTHROPIC_BETA_HAIKU : ANTHROPIC_BETA_FULL;
+            const MAX_TOKENS = 64000;
+            const DEFAULT_MODEL = 'claude-opus-4-8';
+
+            const CC_SYSTEM_BLOCKS = [
+                { type: 'text', text: 'x-anthropic-billing-header: cc_version=2.1.178.ef6; cc_entrypoint=cli; cch=e3b64;' },
+                { type: 'text', text: "You are Claude Code, Anthropic's official CLI for Claude.", cache_control: { type: 'ephemeral' } },
+            ];
+
+            function apiBase() { const p = getActiveProvider(); return (p ? p.baseUrl : PRESET_PROVIDERS[0].baseUrl).replace(/\/+$/, ''); }
+            function proxied(path) { return CORS_PROXY + encodeURIComponent(apiBase() + path); }
+
+            // --- Идентификаторы сессии/устройства ---
+            function randomHex(bytes) {
+                const arr = new Uint8Array(bytes);
+                crypto.getRandomValues(arr);
+                return Array.from(arr).map(b => b.toString(16).padStart(2, '0')).join('');
+            }
+            function uuidv4() {
+                if (crypto.randomUUID) return crypto.randomUUID();
+                return ('' + 1e7 + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+                    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
+            }
+            let deviceId = localStorage.getItem('cc_device_id');
+            if (!deviceId) { deviceId = randomHex(32); localStorage.setItem('cc_device_id', deviceId); }
+            const sessionId = uuidv4();
+
+            function buildHeaders(token, json = true, model = null) {
+                const h = {
+                    'accept': 'application/json',
+                    'authorization': `Bearer ${token}`,
+                    'x-api-key': token,
+                    'anthropic-version': API_VERSION,
+                    'anthropic-beta': betaFor(model),
+                    'anthropic-dangerous-direct-browser-access': 'true',
+                    'x-app': 'cli',
+                    'user-agent': 'claude-cli/2.1.178 (external, cli)',
+                    'x-claude-code-session-id': sessionId,
+                    'x-stainless-arch': 'x64', 'x-stainless-lang': 'js', 'x-stainless-os': 'Windows',
+                    'x-stainless-package-version': '0.94.0', 'x-stainless-retry-count': '0',
+                    'x-stainless-runtime': 'node', 'x-stainless-runtime-version': 'v24.3.0', 'x-stainless-timeout': '600',
+                };
+                if (json) h['content-type'] = 'application/json';
+                return h;
+            }
+            function buildMetadata() {
+                return { user_id: JSON.stringify({ device_id: deviceId, account_uuid: '', session_id: sessionId }) };
+            }
+
+            // --- Состояние ---
+            let providers = PRESET_PROVIDERS.slice();
+            let activeProviderId = 'freemodel';
+            let providerTokens = {};        // { providerId: [tokens] }
+            let providerTokenIndex = {};    // { providerId: idx }
+            let tokens = [];                // токены активного провайдера (ссылка на providerTokens[id])
+            let currentTokenIndex = 0;
+            let chats = [];               // [{id,title,messages,model,pinned,createdAt,updatedAt}]
+            let activeChatId = null;
+            let isStreaming = false;
+            let abortController = null;
+            let availableModels = [];
+            let currentModel = DEFAULT_MODEL;
+            let pendingAttachments = [];
+            let settings = { theme: 'auto', bg: '' };
+            let keepExhaustedTokensEnabled = localStorage.getItem('keep_exhausted_tokens') === '1';
+            const exhaustedTokensByProvider = {}; // временно, только для текущей цепочки повторов
+
+            // DOM
+            const $ = id => document.getElementById(id);
+            const app = $('app');
+            const sidebar = $('sidebar');
+            const chatList = $('chatList');
+            const messagesContainer = $('messagesContainer');
+            const userInput = $('userInput');
+            const sendBtn = $('sendBtn');
+            const modelSelect = $('modelSelect');
+            const tokenCount = $('tokenCount');
+            const statusBadge = $('statusBadge');
+            const manageTokensBtn = $('manageTokensBtn');
+            const tokenModal = $('tokenModal');
+            const tokenInput = $('tokenInput');
+            const tokenListContainer = $('tokenListContainer');
+            const addTokensBtn = $('addTokensBtn');
+            const clearTokensBtn = $('clearTokensBtn');
+            const keepExhaustedTokens = $('keepExhaustedTokens');
+            const newChatBtn = $('newChatBtn');
+            const refreshModelsBtn = $('refreshModelsBtn');
+            const fileInput = $('fileInput');
+            const attachBtn = $('attachBtn');
+            const attachmentsBar = $('attachmentsBar');
+            const chatArea = $('chatArea');
+            const dropOverlay = $('dropOverlay');
+            const settingsBtn = $('settingsBtn');
+            const settingsModal = $('settingsModal');
+            const themeOptions = $('themeOptions');
+            const bgPreview = $('bgPreview');
+            const bgFileInput = $('bgFileInput');
+            const chooseBgBtn = $('chooseBgBtn');
+            const removeBgBtn = $('removeBgBtn');
+            const toggleSidebarBtn = $('toggleSidebarBtn');
+            const storageMeter = $('storageMeter');
+            const storageText = $('storageText');
+            const storageBar = $('storageBar');
+            const sidebarBackdrop = $('sidebarBackdrop');
+            const providerBtn = $('providerBtn');
+            const providerName = $('providerName');
+            const providerModal = $('providerModal');
+            const providerList = $('providerList');
+            const newProviderName = $('newProviderName');
+            const newProviderUrl = $('newProviderUrl');
+            const newProviderDesc = $('newProviderDesc');
+            const addProviderBtn = $('addProviderBtn');
+
+            // --- Мобильный режим ---
+            const mqMobile = window.matchMedia('(max-width: 760px)');
+            const isMobile = () => mqMobile.matches;
+            function collapseSidebarOnMobile() { if (isMobile()) app.classList.add('sidebar-collapsed'); }
+
+            // ========================= ХРАНИЛИЩЕ =========================
+            const STORAGE_LIMIT = 5 * 1024 * 1024; // ~5 МБ (типичный лимит)
+            function storageBytes() {
+                let total = 0;
+                for (let i = 0; i < localStorage.length; i++) {
+                    const k = localStorage.key(i);
+                    total += k.length + (localStorage.getItem(k) || '').length;
+                }
+                return total * 2; // UTF-16 ≈ 2 байта на символ
+            }
+            function updateStorageMeter() {
+                const used = storageBytes();
+                const pct = Math.min(100, Math.round((used / STORAGE_LIMIT) * 100));
+                storageBar.style.width = pct + '%';
+                const mb = (used / 1024 / 1024).toFixed(2);
+                storageText.textContent = `Хранилище: ${pct}% (${mb} МБ)`;
+                storageMeter.classList.toggle('warn', pct >= 75 && pct < 90);
+                storageMeter.classList.toggle('crit', pct >= 90);
+                return pct;
+            }
+            function warnIfStorageLow() {
+                const pct = updateStorageMeter();
+                if (pct >= 90) {
+                    updateStatus('⚠️ Хранилище почти заполнено — удалите старые чаты', 'error');
+                } else if (pct >= 75) {
+                    updateStatus('⚠️ Хранилище заполнено на ' + pct + '%', 'warning');
+                }
+            }
+
+            function loadAll() {
+                try {
+                    const m = localStorage.getItem('claude_model');
+                    if (m) currentModel = m;
+                    const s = localStorage.getItem('ui_settings');
+                    if (s) { const p = JSON.parse(s); settings = Object.assign(settings, p); }
+
+                    const v2 = localStorage.getItem('claude_chats_v2');
+                    if (v2) {
+                        const p = JSON.parse(v2);
+                        if (Array.isArray(p)) chats = p;
+                    } else {
+                        migrateOldChats();
+                    }
+                    activeChatId = localStorage.getItem('claude_active_chat');
+                } catch (e) { console.warn('Ошибка загрузки', e); }
+
+                if (!chats.length) createChat(false);
+                if (!chats.find(c => c.id === activeChatId)) activeChatId = sortedChats()[0].id;
+            }
+
+            function migrateOldChats() {
+                // Переносим старый формат (claude_current_chat + claude_saved_chats) в новый.
+                try {
+                    const cur = localStorage.getItem('claude_current_chat');
+                    if (cur) {
+                        const msgs = JSON.parse(cur);
+                        if (Array.isArray(msgs) && msgs.length) {
+                            chats.push(makeChat('Текущий чат', msgs, currentModel));
+                        }
+                    }
+                    const saved = JSON.parse(localStorage.getItem('claude_saved_chats') || '{}');
+                    for (const [name, obj] of Object.entries(saved)) {
+                        chats.push(makeChat(name, obj.messages || [], obj.model || currentModel));
+                    }
+                } catch (e) { /* игнор */ }
+            }
+
+            // Убирает тяжёлые данные файлов (base64 картинок/PDF �� текст вложенных файлов)
+            // перед сохранением в localStorage. В памяти файлы остаются целиком и уходят
+            // в API-запрос, но НЕ занимают место в хранилище и не тормозят перезагрузку.
+            function sanitizeChatsForStorage(chatsArr) {
+                return chatsArr.map(chat => {
+                    const messages = (chat.messages || []).map(msg => {
+                        let content = msg.content;
+                        let attachments = msg.attachments;
+                        // Лёгкие метаданные вложений — без dataUrl/base64
+                        if (Array.isArray(attachments) && attachments.length) {
+                            attachments = attachments.map(a => ({ kind: a.kind, name: a.name }));
+                        }
+                        if (Array.isArray(content)) {
+                            const heavy = content.some(b =>
+                                b.type === 'image' || b.type === 'document' ||
+                                (b.type === 'text' && /^<file name="/.test(b.text || '')));
+                            if (heavy) {
+                                // Восстанавливаем метки вложений из блоков, если их ещё нет
+                                if (!attachments || !attachments.length) {
+                                    attachments = [];
+                                    for (const b of content) {
+                                        if (b.type === 'image') attachments.push({ kind: 'image', name: 'изображение' });
+                                        else if (b.type === 'document') attachments.push({ kind: 'pdf', name: 'документ' });
+                                        else if (b.type === 'text') { const m = (b.text || '').match(/^<file name="([^"]*)">/); if (m) attachments.push({ kind: 'text', name: m[1] }); }
+                                    }
+                                }
+                                // В хранилище оставляем только реальный текст пользователя (без файлов)
+                                content = content
+                                    .filter(b => b.type === 'text' && !/^<file name="/.test(b.text || ''))
+                                    .map(b => b.text).join('\n');
+                            }
+                        }
+                        return { ...msg, content, attachments };
+                    });
+                    return { ...chat, messages };
+                });
+            }
+            function persistChats() {
+                try {
+                    localStorage.setItem('claude_chats_v2', JSON.stringify(sanitizeChatsForStorage(chats)));
+                    localStorage.setItem('claude_active_chat', activeChatId || '');
+                    warnIfStorageLow();
+                } catch (e) {
+                    console.error(e);
+                    if (e && e.name === 'QuotaExceededError') {
+                        alert('Хранилище переполнено! Чат не сохранён. Удалите старые чаты или фоновое изображение.');
+                        updateStatus('❌ Хранилище переполнено', 'error');
+                    }
+                }
+                updateStorageMeter();
+            }
+            function persistTokens() {
+                try {
+                    providerTokens[activeProviderId] = tokens;
+                    providerTokenIndex[activeProviderId] = currentTokenIndex;
+                    localStorage.setItem('provider_tokens', JSON.stringify(providerTokens));
+                    localStorage.setItem('provider_token_index', JSON.stringify(providerTokenIndex));
+                    localStorage.setItem('claude_model', currentModel);
+                    localStorage.setItem('active_provider', activeProviderId);
+                } catch (e) { console.warn(e); }
+                if (providerModal && providerModal.classList.contains('active')) renderProviderList();
+                updateStorageMeter();
+            }
+            function persistSettings() {
+                try { localStorage.setItem('ui_settings', JSON.stringify(settings)); warnIfStorageLow(); }
+                catch (e) {
+                    if (e && e.name === 'QuotaExceededError') {
+                        alert('Не удалось сохранить фон — хранилище переполнено. Попробуйте изображение поменьше.');
+                        settings.bg = '';
+                        applyBackground();
+                    }
+                }
+                updateStorageMeter();
+            }
+
+            // ========================= МОДЕЛЬ ДАННЫХ ЧАТОВ =========================
+            function makeChat(title, messages, model) {
+                const now = Date.now();
+                return { id: 'c_' + randomHex(8), title: title || 'Новый чат', messages: messages || [], model: model || currentModel, pinned: false, createdAt: now, updatedAt: now };
+            }
+            function createChat(render = true) {
+                const c = makeChat('Новый чат', [], modelSelect ? modelSelect.value : currentModel);
+                chats.push(c);
+                activeChatId = c.id;
+                pendingAttachments = []; renderPendingAttachments();
+                if (render) { renderSidebar(); renderMessages(); persistChats(); collapseSidebarOnMobile(); userInput.focus(); }
+                return c;
+            }
+            function getActiveChat() {
+                let c = chats.find(x => x.id === activeChatId);
+                if (!c) { c = sortedChats()[0] || createChat(false); activeChatId = c.id; }
+                return c;
+            }
+            function activeMessages() { return getActiveChat().messages; }
+            function sortedChats() {
+                return chats.slice().sort((a, b) => {
+                    if (!!b.pinned !== !!a.pinned) return (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0);
+                    return b.updatedAt - a.updatedAt;
+                });
+            }
+            function selectChat(id) {
+                if (isStreaming) { updateStatus('⏳ Дождитесь окончания ответа', 'warning'); return; }
+                activeChatId = id;
+                const c = getActiveChat();
+                currentModel = c.model || currentModel;
+                if (modelSelect.querySelector(`option[value="${c.model}"]`)) modelSelect.value = c.model;
+                pendingAttachments = []; renderPendingAttachments();
+                renderSidebar(); renderMessages();
+                collapseSidebarOnMobile();
+                localStorage.setItem('claude_active_chat', activeChatId);
+            }
+            function deleteChat(id) {
+                const c = chats.find(x => x.id === id);
+                if (!c) return;
+                if (c.messages.length && !confirm(`Удалить чат «${c.title}»?`)) return;
+                chats = chats.filter(x => x.id !== id);
+                if (!chats.length) createChat(false);
+                if (activeChatId === id) activeChatId = sortedChats()[0].id;
+                renderSidebar(); renderMessages(); persistChats();
+            }
+            // Клонирует диалог вместе со всей историей сообщений
+            function cloneChat(id) {
+                const source = chats.find(x => x.id === id);
+                if (!source) return;
+                const copy = {
+                    ...source,
+                    id: 'c_' + randomHex(8),
+                    title: source.title + ' (копия)',
+                    pinned: false,
+                    messages: source.messages.map(m => ({ ...m })),
+                    createdAt: Date.now(),
+                    updatedAt: Date.now(),
+                };
+                chats.push(copy);
+                activeChatId = copy.id;
+                renderSidebar(); renderMessages(); persistChats();
+                updateStatus('Диалог клонирован', 'active');
+            }
+            function togglePin(id) {
+                const c = chats.find(x => x.id === id);
+                if (!c) return;
+                c.pinned = !c.pinned;
+                renderSidebar(); persistChats();
+            }
+            function renameChat(id, title) {
+                const c = chats.find(x => x.id === id);
+                if (!c) return;
+                c.title = (title || '').trim() || c.title;
+                renderSidebar(); persistChats();
+            }
+            function autoTitle(chat, firstText) {
+                if (chat.title && chat.title !== 'Новый чат') return;
+                const t = (firstText || '').replace(/\s+/g, ' ').trim();
+                if (t) chat.title = t.length > 38 ? t.slice(0, 38) + '…' : t;
+            }
+
+            // ========================= РЕНДЕР БОКОВОЙ ПАНЕЛИ =========================
+            function chatPreviewText(chat) {
+                for (let i = chat.messages.length - 1; i >= 0; i--) {
+                    const m = chat.messages[i];
+                    const { text } = extractDisplay(m);
+                    if (text) return (m.role === 'user' ? 'Вы: ' : '') + text;
+                }
+                return 'Пустой чат';
+            }
+            function renderSidebar() {
+                chatList.innerHTML = '';
+                const list = sortedChats();
+                if (!list.length) { chatList.innerHTML = '<div class="chat-empty">Нет чатов</div>'; return; }
+                for (const c of list) {
+                    const card = document.createElement('div');
+                    card.className = 'chat-card' + (c.id === activeChatId ? ' active' : '') + (c.pinned ? ' pinned' : '');
+                    card.dataset.id = c.id;
+                    card.innerHTML =
+                        `<span class="chat-pin" data-act="pin" title="${c.pinned ? 'Открепить' : 'Закрепить'}">${c.pinned ? '📌' : '📍'}</span>` +
+                        `<div class="chat-body">` +
+                        `<div class="chat-title" data-act="title">${escapeHtml(c.title)}</div>` +
+                        `<div class="chat-snippet">${escapeHtml(chatPreviewText(c).slice(0, 60))}</div>` +
+                        `</div>` +
+                        `<span class="chat-actions">` +
+                        `<span class="chat-delete" data-act="delete" title="Удалить чат">✕</span>` +
+                        `<span class="chat-clone" data-act="clone" title="Клонировать диалог">⧉</span>` +
+                        `</span>`;
+                    chatList.appendChild(card);
+                }
+            }
+
+            function startRename(card, id) {
+                const titleEl = card.querySelector('.chat-title');
+                if (!titleEl || card.querySelector('.chat-rename-input')) return;
+                const chat = chats.find(x => x.id === id);
+                const input = document.createElement('input');
+                input.className = 'chat-rename-input';
+                input.value = chat ? chat.title : '';
+                titleEl.replaceWith(input);
+                input.focus(); input.select();
+                let done = false;
+                const commit = (save) => {
+                    if (done) return; done = true;
+                    if (save) renameChat(id, input.value); else renderSidebar();
+                };
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') { e.preventDefault(); commit(true); }
+                    else if (e.key === 'Escape') { e.preventDefault(); commit(false); }
+                });
+                input.addEventListener('blur', () => commit(true));
+                input.addEventListener('click', e => e.stopPropagation());
+            }
+
+            // ========================= МОДЕЛИ =========================
+            async function fetchAvailableModels() {
+                const token = getCurrentToken();
+                if (!token) { updateStatus('⚠️ Нет токена для загрузки моделей', 'warning'); return; }
+                updateStatus('⏳ Загрузка моделей...', 'active');
+                try {
+                    const response = await fetch(proxied('/v1/models'), { headers: buildHeaders(token, false) });
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    const data = await response.json();
+                    const models = data.data || [];
+                    if (!models.length) throw new Error('Список моделей пуст');
+                    availableModels = models.map(m => m.id).filter(id => id && typeof id === 'string');
+                    updateModelsDropdown();
+                    updateStatus(`✅ Загружено ${availableModels.length} моделей`, 'active');
+                    if (!availableModels.includes(currentModel) && availableModels.length) {
+                        currentModel = availableModels[0]; modelSelect.value = currentModel; persistTokens();
+                    }
+                } catch (error) {
+                    console.error('Ошибка за��рузки моделей:', error);
+                    updateStatus(`⚠️ Не удалось загрузить модели: ${error.message}`, 'error');
+                    availableModels = []; updateModelsDropdown();
+                }
+            }
+            function updateModelsDropdown() {
+                const currentValue = modelSelect.value;
+                modelSelect.innerHTML = '';
+                const manual = document.createElement('option');
+                manual.value = DEFAULT_MODEL; manual.textContent = DEFAULT_MODEL + ' (ручная)';
+                modelSelect.appendChild(manual);
+                if (availableModels.length) {
+                    const sep = document.createElement('option');
+                    sep.disabled = true; sep.textContent = '─── С сервера ───';
+                    modelSelect.appendChild(sep);
+                    availableModels.forEach(id => {
+                        const o = document.createElement('option'); o.value = id; o.textContent = id;
+                        modelSelect.appendChild(o);
+                    });
+                }
+                if (currentValue && (currentValue === DEFAULT_MODEL || availableModels.includes(currentValue))) modelSelect.value = currentValue;
+                else if (availableModels.length) { modelSelect.value = availableModels[0]; currentModel = availableModels[0]; }
+                else { modelSelect.value = DEFAULT_MODEL; currentModel = DEFAULT_MODEL; }
+            }
+
+            // ========================= MARKDOWN =========================
+            const S = ''; // приватный сепаратор для плейсхолдеров
+            const LANG_EXT = { javascript: 'js', js: 'js', jsx: 'jsx', typescript: 'ts', ts: 'ts', tsx: 'tsx', python: 'py', py: 'py', bash: 'sh', sh: 'sh', shell: 'sh', zsh: 'sh', json: 'json', html: 'html', xml: 'xml', css: 'css', scss: 'scss', java: 'java', kotlin: 'kt', c: 'c', cpp: 'cpp', 'c++': 'cpp', csharp: 'cs', cs: 'cs', go: 'go', golang: 'go', rust: 'rs', rs: 'rs', ruby: 'rb', rb: 'rb', php: 'php', sql: 'sql', yaml: 'yml', yml: 'yml', toml: 'toml', ini: 'ini', markdown: 'md', md: 'md', text: 'txt', '': 'txt' };
+
+            function safeUrl(u) {
+                const d = (u || '').trim();
+                if (/^(https?:|mailto:|#|\/|\.)/i.test(d)) return d;
+                return '#';
+            }
+            function parseInline(s) {
+                s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (m, t, u) => `<a href="${safeUrl(u)}" target="_blank" rel="noopener">${t}</a>`);
+                s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>').replace(/__([^_]+)__/g, '<strong>$1</strong>');
+                s = s.replace(/(^|[^*])\*([^*\n]+)\*/g, '$1<em>$2</em>');
+                s = s.replace(/(^|[^\w])_([^_\n]+)_/g, '$1<em>$2</em>');
+                s = s.replace(/~~([^~]+)~~/g, '<del>$1</del>');
+                return s;
+            }
+            function renderCodeBlock(block) {
+                const lang = (block.lang || '').trim();
+                return `<div class="code-block" data-lang="${escapeHtml(lang)}">` +
+                    `<div class="code-header"><span class="code-lang">${escapeHtml(lang || 'text')}</span>` +
+                    `<span class="code-actions">` +
+                    `<button class="code-btn code-copy" type="button">📋 Копировать</button>` +
+                    `<button class="code-btn code-download" type="button">⬇️ Скачать</button>` +
+                    `</span></div>` +
+                    `<pre><code>${escapeHtml(block.code)}</code></pre></div>`;
+            }
+            function renderMarkdown(src) {
+                if (!src) return '';
+                const codeBlocks = [], inlineCodes = [];
+                // 1. Вынимаем бл��ки кода и инлайн-код в плейсхолдеры
+                let text = src.replace(/```([^\n`]*)\n?([\s\S]*?)```/g, (m, lang, code) => {
+                    codeBlocks.push({ lang: lang || '', code: code.replace(/\n$/, '') });
+                    return `\n${S}C${codeBlocks.length - 1}${S}\n`;
+                });
+                text = text.replace(/`([^`\n]+)`/g, (m, c) => { inlineCodes.push(c); return `${S}I${inlineCodes.length - 1}${S}`; });
+                // 2. Экранируем HTML
+                text = escapeHtml(text);
+                // 3. Блочный парсинг
+                const lines = text.split('\n');
+                let html = '', para = [], listType = null, listItems = [], quote = [];
+                const flushPara = () => { if (para.length) { html += `<p>${para.map(parseInline).join('<br>')}</p>`; para = []; } };
+                const flushList = () => { if (listType) { html += `<${listType}>` + listItems.map(li => `<li>${parseInline(li)}</li>`).join('') + `</${listType}>`; listType = null; listItems = []; } };
+                const flushQuote = () => { if (quote.length) { html += `<blockquote>${quote.map(parseInline).join('<br>')}</blockquote>`; quote = []; } };
+                const flushAll = () => { flushPara(); flushList(); flushQuote(); };
+                for (const line of lines) {
+                    const trimmed = line.trim();
+                    let m;
+                    if (new RegExp(`^${S}C\\d+${S}$`).test(trimmed)) { flushAll(); html += trimmed; continue; }
+                    if (!trimmed) { flushAll(); continue; }
+                    if (/^ *([-*_]) *(\1 *){2,}$/.test(line)) { flushAll(); html += '<hr>'; continue; }
+                    if (m = trimmed.match(/^(#{1,6})\s+(.*)$/)) { flushAll(); const lvl = m[1].length; html += `<h${lvl}>${parseInline(m[2])}</h${lvl}>`; continue; }
+                    if (m = line.match(/^>\s?(.*)$/)) { flushPara(); flushList(); quote.push(m[1]); continue; }
+                    if (m = line.match(/^\s*[-*+]\s+(.*)$/)) { flushPara(); flushQuote(); if (listType !== 'ul') { flushList(); listType = 'ul'; } listItems.push(m[1]); continue; }
+                    if (m = line.match(/^\s*\d+[.)]\s+(.*)$/)) { flushPara(); flushQuote(); if (listType !== 'ol') { flushList(); listType = 'ol'; } listItems.push(m[1]); continue; }
+                    flushList(); flushQuote(); para.push(line);
+                }
+                flushAll();
+                // 4. Возвращаем код на место
+                html = html.replace(new RegExp(`${S}I(\\d+)${S}`, 'g'), (m, i) => `<code class="inline-code">${escapeHtml(inlineCodes[i])}</code>`);
+                html = html.replace(new RegExp(`${S}C(\\d+)${S}`, 'g'), (m, i) => renderCodeBlock(codeBlocks[i]));
+                return html;
+            }
+
+            // ========================= РЕНДЕР СООБЩЕНИЙ =========================
+            function extractDisplay(msg) {
+                const result = { text: '', attachments: msg.attachments || [] };
+                if (typeof msg.content === 'string') { result.text = msg.content; return result; }
+                if (Array.isArray(msg.content)) {
+                    const parts = [];
+                    // Текстовые блоки-файлы (<file name="...">) НЕ выводим в пузырь целиком —
+                    // они показываются как компактные чипы-вложения (иначе большой файл лагает чат).
+                    for (const b of msg.content) if (b.type === 'text' && !/^<file name="/.test(b.text || '')) parts.push(b.text);
+                    result.text = parts.join('\n');
+                    if (!msg.attachments) {
+                        const atts = [];
+                        for (const b of msg.content) {
+                            if (b.type === 'image' && b.source) atts.push({ kind: 'image', name: 'изображение', dataUrl: `data:${b.source.media_type};base64,${b.source.data}` });
+                            else if (b.type === 'document' && b.source) atts.push({ kind: 'pdf', name: 'документ' });
+                            else if (b.type === 'text') { const m = (b.text || '').match(/^<file name="([^"]*)">/); if (m) atts.push({ kind: 'text', name: m[1] }); }
+                        }
+                        result.attachments = atts;
+                    }
+                }
+                return result;
+            }
+            function attachmentsHtml(attachments) {
+                if (!attachments || !attachments.length) return '';
+                return `<div class="msg-attachments">` + attachments.map(a => {
+                    if (a.kind === 'image' && a.dataUrl) return `<img src="${a.dataUrl}" alt="${escapeHtml(a.name)}" title="${escapeHtml(a.name)}">`;
+                    return `<span class="msg-file">${a.kind === 'pdf' ? '📄' : '📎'} ${escapeHtml(a.name)}</span>`;
+                }).join('') + `</div>`;
+            }
+            function renderMessages() {
+                const chat = getActiveChat();
+                const msgs = chat.messages;
+                messagesContainer.innerHTML = '';
+                if (!msgs.length) {
+                    messagesContainer.innerHTML =
+                        `<div class="message assistant"><span class="role-badge">Assistant</span>` +
+                        `Новый чат. Начните диалог!<span class="model-badge">${escapeHtml(currentModel)}</span></div>`;
+                    return;
+                }
+                msgs.forEach((msg, index) => {
+                    const div = document.createElement('div');
+                    div.className = `message ${msg.role}`;
+                    div.dataset.index = String(index);
+                    const { text, attachments } = extractDisplay(msg);
+                    const modelBadge = (msg.role === 'assistant' && msg.model) ? `<span class="model-badge">${escapeHtml(msg.model)}</span>` : '';
+                    // Шапка: роль + кнопки «копировать», «редактировать» и «удалить»
+                    const head = `<div class="msg-head"><span class="role-badge">${msg.role === 'user' ? 'Вы' : 'Assistant'}</span>` +
+                        `<span class="msg-actions">` +
+                        `<button type="button" class="msg-action-btn" data-act="copy" title="Копировать" aria-label="Копировать сообщение">⧉</button>` +
+                        `<button type="button" class="msg-action-btn" data-act="edit" title="Редактировать" aria-label="Редактировать сообщение">✎</button>` +
+                        `<button type="button" class="msg-action-btn" data-act="del" title="Удалить" aria-label="Удалить сообщение">✕</button>` +
+                        `</span></div>`;
+                    const body = msg.role === 'assistant'
+                        ? `<div class="msg-body"><div class="md">${renderMarkdown(text)}</div></div>`
+                        : `<div class="msg-body">${attachmentsHtml(attachments)}${escapeHtml(text)}</div>`;
+                    div.innerHTML = head + body + modelBadge;
+                    messagesContainer.appendChild(div);
+                });
+                scrollToBottom();
+            }
+
+            // ============ РЕДАКТИРОВАНИЕ / УДАЛЕНИЕ СООБЩЕНИЙ ============
+            // Записывает новый текст в сообщение, сохраняя вложения (картинки,
+            // PDF и текстовые блоки <file name="...">) в исходном порядке.
+            function applyMessageText(msg, newText) {
+                if (Array.isArray(msg.content)) {
+                    const kept = msg.content.filter(b =>
+                        b.type !== 'text' || /^<file name="/.test(b.text || ''));
+                    msg.content = newText ? [...kept, { type: 'text', text: newText }] : kept;
+                } else {
+                    msg.content = newText;
+                }
+            }
+            // Быстрое копирование текста сообщения в буфер обмена
+            function copyMessage(index, btn) {
+                const chat = getActiveChat();
+                const msg = chat.messages[index];
+                if (!msg) return;
+                const { text } = extractDisplay(msg);
+                navigator.clipboard.writeText(text).then(() => {
+                    if (btn) {
+                        const original = btn.textContent;
+                        btn.textContent = '✓';
+                        setTimeout(() => { btn.textContent = original; }, 1200);
+                    }
+                    updateStatus('Скопировано в буфер обмена', 'active');
+                }).catch(() => alert('Не удалось скопировать.'));
+            }
+            function deleteMessage(index) {
+                if (isStreaming) { updateStatus('Дождитесь окончания ответа', 'warning'); return; }
+                const chat = getActiveChat();
+                if (index < 0 || index >= chat.messages.length) return;
+                if (!confirm('Удалить это сообщение из диалога?')) return;
+                chat.messages.splice(index, 1);
+                chat.updatedAt = Date.now();
+                renderMessages(); renderSidebar(); persistChats();
+                updateStatus('Сообщение удалено', 'active');
+            }
+            function startEditMessage(index) {
+                if (isStreaming) { updateStatus('Дождитесь окончания ответа', 'warning'); return; }
+                const chat = getActiveChat();
+                const msg = chat.messages[index];
+                if (!msg) return;
+                const bubble = messagesContainer.querySelector(`.message[data-index="${index}"]`);
+                if (!bubble || bubble.querySelector('.msg-edit-area')) return;
+
+                const body = bubble.querySelector('.msg-body');
+                const { text } = extractDisplay(msg);
+                const area = document.createElement('textarea');
+                area.className = 'msg-edit-area';
+                area.value = text;
+                const actions = document.createElement('div');
+                actions.className = 'msg-edit-actions';
+                actions.innerHTML =
+                    `<button type="button" class="btn btn-primary" data-edit="save">Сохранить</button>` +
+                    `<button type="button" class="btn" data-edit="cancel">Отмена</button>` +
+                    `<span class="msg-edit-hint">Ctrl+Enter — сохранить, Esc — отмена</span>`;
+
+                body.style.display = 'none';
+                bubble.appendChild(area);
+                bubble.appendChild(actions);
+                area.focus();
+                area.setSelectionRange(area.value.length, area.value.length);
+
+                function finish() { renderMessages(); }
+                function save() {
+                    applyMessageText(msg, area.value.trim());
+                    chat.updatedAt = Date.now();
+                    persistChats(); renderMessages(); renderSidebar();
+                    updateStatus('Сообщение изменено', 'active');
+                }
+                actions.querySelector('[data-edit="save"]').addEventListener('click', save);
+                actions.querySelector('[data-edit="cancel"]').addEventListener('click', finish);
+                area.addEventListener('keydown', e => {
+                    if (e.key === 'Escape') { e.preventDefault(); finish(); }
+                    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); save(); }
+                });
+            }
+
+            // ========================= ТОКЕНЫ =========================
+            function renderTokenList() {
+                tokenListContainer.innerHTML = '';
+                if (!tokens.length) { tokenListContainer.innerHTML = '<span style="color:var(--text-muted); font-size:0.9rem;">Токены не добавлены</span>'; return; }
+                tokens.forEach((t, idx) => {
+                    const badge = document.createElement('span');
+                    badge.className = 'token-badge';
+                    const isActive = idx === currentTokenIndex;
+                    const display = t.length > 20 ? t.slice(0, 10) + '…' + t.slice(-6) : t;
+                    badge.innerHTML = `<span>${isActive ? '▶️ ' : ''}${escapeHtml(display)}</span><span class="remove-token" data-index="${idx}">✕</span>`;
+                    if (isActive) badge.style.border = '2px solid var(--accent)';
+                    badge.querySelector('.remove-token').addEventListener('click', e => { e.stopPropagation(); removeToken(idx); });
+                    tokenListContainer.appendChild(badge);
+                });
+            }
+            function updateStatus(text, type = '') { statusBadge.textContent = text; statusBadge.className = 'status-badge' + (type ? ' ' + type : ''); }
+            function scrollToBottom() { messagesContainer.scrollTop = messagesContainer.scrollHeight; }
+            function removeToken(index) {
+                if (index < 0 || index >= tokens.length) return;
+                tokens.splice(index, 1);
+                if (currentTokenIndex >= tokens.length) currentTokenIndex = Math.max(0, tokens.length - 1);
+                tokenCount.textContent = tokens.length; renderTokenList(); persistTokens();
+                if (!tokens.length) updateStatus('Нет токенов', 'error');
+            }
+            function addTokensFromInput() {
+                const newTokens = tokenInput.value.split('\n').map(s => s.trim()).filter(Boolean);
+                if (!newTokens.length) { alert('Введите хотя бы один токен.'); return; }
+                const unique = newTokens.filter(t => !tokens.includes(t));
+                if (!unique.length) { alert('Все токены уже есть в списке.'); return; }
+                const wasEmpty = !tokens.length;
+                tokens.push(...unique);
+                if (wasEmpty) currentTokenIndex = 0;
+                tokenInput.value = ''; tokenCount.textContent = tokens.length; renderTokenList(); persistTokens();
+                updateStatus(`Добавлено ${unique.length} токенов`, 'active');
+                fetchAvailableModels();
+            }
+            function clearAllTokens() {
+                if (!tokens.length) return;
+                if (!confirm('Удалить все токены?')) return;
+                tokens = []; currentTokenIndex = 0; tokenCount.textContent = 0; renderTokenList(); persistTokens();
+                updateStatus('Все токены удалены', 'error'); availableModels = []; updateModelsDropdown();
+            }
+            function getCurrentToken() {
+                if (!tokens.length) { updateStatus('❌ Нет доступных токенов', 'error'); return null; }
+                if (currentTokenIndex >= tokens.length) currentTokenIndex = 0;
+                return tokens[currentTokenIndex];
+            }
+            function isQuotaExhaustedError(errorText) {
+                return /quota|credit balance|credits? exhausted|out of credits|insufficient[_\s-]*(quota|credits?|funds)|usage limit|token limit|limit[^\n]*(reached|exceeded|exhausted)/i.test(errorText || '');
+            }
+            function getExhaustedTokenSet() {
+                if (!exhaustedTokensByProvider[activeProviderId]) exhaustedTokensByProvider[activeProviderId] = new Set();
+                return exhaustedTokensByProvider[activeProviderId];
+            }
+            function rotateToNextToken(options = {}) {
+                const preserveCurrent = !!options.preserveCurrent;
+                if (!tokens.length) return false;
+
+                if (preserveCurrent) {
+                    const exhausted = getExhaustedTokenSet();
+                    exhausted.add(tokens[currentTokenIndex]);
+                    for (let step = 1; step <= tokens.length; step++) {
+                        const nextIndex = (currentTokenIndex + step) % tokens.length;
+                        if (!exhausted.has(tokens[nextIndex])) {
+                            currentTokenIndex = nextIndex;
+                            renderTokenList(); persistTokens();
+                            updateStatus(`Лимит токена исчерпан, пробуем следующий (${exhausted.size}/${tokens.length})`, 'warning');
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+
+                if (tokens.length <= 1) { updateStatus('Только один токен, ротация невозможна', 'error'); return false; }
+                tokens.splice(currentTokenIndex, 1);
+                if (currentTokenIndex >= tokens.length) currentTokenIndex = 0;
+                tokenCount.textContent = tokens.length; renderTokenList(); persistTokens();
+                updateStatus(`Токен заменён, осталось ${tokens.length}`, 'warning');
+                return true;
+            }
+
+            // ========================= ПРОВАЙДЕРЫ =========================
+            function getActiveProvider() { return providers.find(p => p.id === activeProviderId) || providers[0]; }
+
+            function loadProviders() {
+                let custom = [];
+                try { const c = JSON.parse(localStorage.getItem('custom_providers') || '[]'); if (Array.isArray(c)) custom = c; } catch (e) { }
+                providers = PRESET_PROVIDERS.concat(custom);
+                activeProviderId = localStorage.getItem('active_provider') || 'freemodel';
+                if (!providers.find(p => p.id === activeProviderId)) activeProviderId = providers[0].id;
+                try { providerTokens = JSON.parse(localStorage.getItem('provider_tokens') || 'null') || {}; } catch (e) { providerTokens = {}; }
+                try { providerTokenIndex = JSON.parse(localStorage.getItem('provider_token_index') || 'null') || {}; } catch (e) { providerTokenIndex = {}; }
+                // Миграция старых токенов (claude_tokens) → провайдер freemodel
+                if (!localStorage.getItem('provider_tokens')) {
+                    try {
+                        const old = JSON.parse(localStorage.getItem('claude_tokens') || '[]');
+                        if (Array.isArray(old) && old.length) {
+                            providerTokens.freemodel = old;
+                            const oi = parseInt(localStorage.getItem('claude_token_index') || '0', 10);
+                            providerTokenIndex.freemodel = isNaN(oi) ? 0 : oi;
+                            localStorage.setItem('provider_tokens', JSON.stringify(providerTokens));
+                            localStorage.setItem('provider_token_index', JSON.stringify(providerTokenIndex));
+                        }
+                    } catch (e) { }
+                }
+                loadActiveProviderTokens();
+            }
+            function loadActiveProviderTokens() {
+                if (!Array.isArray(providerTokens[activeProviderId])) providerTokens[activeProviderId] = [];
+                tokens = providerTokens[activeProviderId];
+                currentTokenIndex = providerTokenIndex[activeProviderId] || 0;
+                if (currentTokenIndex >= tokens.length) currentTokenIndex = 0;
+            }
+            function saveCustomProviders() {
+                localStorage.setItem('custom_providers', JSON.stringify(providers.filter(p => !p.builtin)));
+            }
+            function updateProviderUI() { if (providerName) providerName.textContent = getActiveProvider().name; }
+
+            function setActiveProvider(id) {
+                if (id === activeProviderId) { providerModal.classList.remove('active'); return; }
+                persistTokens(); // сохранить токены текущего провайдера
+                activeProviderId = id;
+                localStorage.setItem('active_provider', id);
+                loadActiveProviderTokens();
+                tokenCount.textContent = tokens.length;
+                renderTokenList(); updateProviderUI(); renderProviderList();
+                availableModels = []; updateModelsDropdown();
+                updateStatus('Провайдер: ' + getActiveProvider().name, 'active');
+                if (tokens.length) fetchAvailableModels();
+            }
+            function addProvider(name, url, desc) {
+                name = (name || '').trim(); url = (url || '').trim(); desc = (desc || '').trim();
+                if (!name || !url) { alert('Укажите название и URL эндпоинта.'); return; }
+                if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+                try { new URL(url); } catch (e) { alert('Некорректный URL.'); return; }
+                url = url.replace(/\/+$/, '');
+                providers.push({ id: 'cust_' + randomHex(4), name, baseUrl: url, desc, builtin: false });
+                saveCustomProviders(); renderProviderList();
+                newProviderName.value = ''; newProviderUrl.value = ''; newProviderDesc.value = '';
+                updateStatus('Провайдер добавлен', 'active');
+            }
+            // Безопасный рендер примечания провайдера.
+            // Для встроенных провайдеров desc — доверенный HTML (со ссылками).
+            // Для пользовательских — экранируем и автоматически превращаем URL в ссылки _blank.
+            function renderProviderDesc(p) {
+                if (!p.desc) return '';
+                if (p.builtin) return p.desc;
+                const escaped = escapeHtml(p.desc);
+                const linked = escaped.replace(/(https?:\/\/[^\s<]+)/g,
+                    '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+                return linked;
+            }
+            function deleteProvider(id) {
+                const p = providers.find(x => x.id === id);
+                if (!p || p.builtin) return;
+                if (!confirm(`Удалить провайдера «${p.name}» и его токены?`)) return;
+                providers = providers.filter(x => x.id !== id);
+                delete providerTokens[id]; delete providerTokenIndex[id];
+                saveCustomProviders();
+                localStorage.setItem('provider_tokens', JSON.stringify(providerTokens));
+                localStorage.setItem('provider_token_index', JSON.stringify(providerTokenIndex));
+                if (activeProviderId === id) {
+                    activeProviderId = providers[0].id;
+                    localStorage.setItem('active_provider', activeProviderId);
+                    loadActiveProviderTokens();
+                    tokenCount.textContent = tokens.length;
+                    renderTokenList(); updateProviderUI();
+                    availableModels = []; updateModelsDropdown();
+                    if (tokens.length) fetchAvailableModels();
+                }
+                renderProviderList();
+            }
+            function renderProviderList() {
+                if (!providerList) return;
+                providerList.innerHTML = '';
+                providers.forEach(p => {
+                    const count = (providerTokens[p.id] || []).length;
+                    const card = document.createElement('div');
+                    card.className = 'provider-card' + (p.id === activeProviderId ? ' active' : '');
+                    card.dataset.id = p.id;
+                    const descHtml = renderProviderDesc(p);
+                    card.innerHTML =
+                        `<div class="provider-card-top">` +
+                        `<span class="provider-radio">${p.id === activeProviderId ? '🔵' : '⚪'}</span>` +
+                        `<span class="provider-card-name">${escapeHtml(p.name)}${p.builtin ? '' : ' <span style="color:var(--text-muted);font-weight:400;font-size:0.7rem;">(своя)</span>'}</span>` +
+                        `<span class="provider-meta">${count} 🔑</span>` +
+                        (p.builtin ? '' : `<span class="provider-delete" data-act="del" title="Удалить">✕</span>`) +
+                        `</div>` +
+                        `<div class="provider-card-url">${escapeHtml(p.baseUrl)}</div>` +
+                        (descHtml ? `<div class="provider-card-desc">${descHtml}</div>` : '');
+                    providerList.appendChild(card);
+                });
+            }
+
+            // ========================= ВЛОЖЕНИЯ =========================
+            const IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+            function fileToAttachment(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    const isImage = file.type.startsWith('image/');
+                    const isPdf = file.type === 'application/pdf' || /\.pdf$/i.test(file.name);
+                    if (isImage || isPdf) {
+                        reader.onload = () => {
+                            const dataUrl = reader.result;
+                            const base64 = String(dataUrl).split(',')[1] || '';
+                            let mediaType = file.type;
+                            if (isImage && !IMAGE_TYPES.includes(mediaType)) mediaType = 'image/png';
+                            if (isPdf) mediaType = 'application/pdf';
+                            resolve({ name: file.name, kind: isImage ? 'image' : 'pdf', mediaType, base64, dataUrl: isImage ? dataUrl : null });
+                        };
+                        reader.onerror = reject; reader.readAsDataURL(file);
+                    } else {
+                        reader.onload = () => resolve({ name: file.name, kind: 'text', mediaType: 'text/plain', textContent: String(reader.result) });
+                        reader.onerror = reject; reader.readAsText(file);
+                    }
+                });
+            }
+            async function addFiles(fileList) {
+                const files = Array.from(fileList || []);
+                if (!files.length) return;
+                updateStatus('📎 Обработка файлов...', 'active');
+                for (const file of files) {
+                    try { pendingAttachments.push(await fileToAttachment(file)); }
+                    catch (e) { console.error(e); alert(`Не удалось прочитать файл: ${file.name}`); }
+                }
+                renderPendingAttachments(); updateStatus('Готов', '');
+            }
+            function renderPendingAttachments() {
+                attachmentsBar.innerHTML = '';
+                if (!pendingAttachments.length) { attachmentsBar.classList.remove('active'); return; }
+                attachmentsBar.classList.add('active');
+                pendingAttachments.forEach((a, idx) => {
+                    const chip = document.createElement('div');
+                    chip.className = 'attach-chip';
+                    const preview = (a.kind === 'image' && a.dataUrl) ? `<img src="${a.dataUrl}" alt="">` : `<span class="attach-icon">${a.kind === 'pdf' ? '📄' : '📝'}</span>`;
+                    chip.innerHTML = `${preview}<span class="attach-name" title="${escapeHtml(a.name)}">${escapeHtml(a.name)}</span><span class="attach-remove" data-idx="${idx}">✕</span>`;
+                    chip.querySelector('.attach-remove').addEventListener('click', () => { pendingAttachments.splice(idx, 1); renderPendingAttachments(); });
+                    attachmentsBar.appendChild(chip);
+                });
+            }
+            function buildUserMessage(text, attachments) {
+                const blocks = [], display = [];
+                for (const a of attachments) {
+                    if (a.kind === 'image') { blocks.push({ type: 'image', source: { type: 'base64', media_type: a.mediaType, data: a.base64 } }); display.push({ kind: 'image', name: a.name, dataUrl: a.dataUrl }); }
+                    else if (a.kind === 'pdf') { blocks.push({ type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: a.base64 } }); display.push({ kind: 'pdf', name: a.name }); }
+                    else if (a.kind === 'text') { blocks.push({ type: 'text', text: `<file name="${a.name}">\n${a.textContent}\n</file>` }); display.push({ kind: 'text', name: a.name }); }
+                }
+                if (text) blocks.push({ type: 'text', text });
+                if (!attachments.length) return { content: text, attachments: [] };
+                return { content: blocks, attachments: display };
+            }
+
+            // ========================= ОТПРАВКА =========================
+            function toApiMessage(msg) { return { role: msg.role, content: msg.content }; }
+
+            async function sendMessageToAPI(userMessage) {
+                if (!tokens.length) { alert('Добавьте хотя бы один API-токен.'); return; }
+                const token = getCurrentToken();
+                if (!token) return;
+                const chat = getActiveChat();
+                const model = modelSelect.value;
+                currentModel = model; chat.model = model;
+                isStreaming = true;
+
+                if (userMessage) {
+                    // Новый запрос начинает новую цепочку ротации: ранее исчерпанные токены
+                    // можно проверить снова (лимит мог обновиться между сообщениями).
+                    exhaustedTokensByProvider[activeProviderId] = new Set();
+                    chat.messages.push({ role: 'user', content: userMessage.content, attachments: userMessage.attachments });
+                    autoTitle(chat, extractDisplay({ content: userMessage.content }).text);
+                    chat.updatedAt = Date.now();
+                    renderMessages(); renderSidebar();
+                }
+                sendBtn.disabled = true; updateStatus('⏳ Отправка...', 'active');
+
+                const requestBody = {
+                    model,
+                    messages: chat.messages.filter(m => m.role === 'user' || m.role === 'assistant').map(toApiMessage),
+                    system: [...CC_SYSTEM_BLOCKS],
+                    metadata: buildMetadata(),
+                    max_tokens: MAX_TOKENS,
+                    stream: true,
+                };
+                // Lite-модели (Haiku) не поддерживают adaptive thinking и параметр effort
+                // (иначе HTTP 400). Продвинутые модели получают полный набор.
+                if (!isLiteModel(model)) {
+                    requestBody.thinking = { type: 'adaptive' };
+                    requestBody.context_management = { edits: [{ type: 'clear_thinking_20251015', keep: 'all' }] };
+                    requestBody.output_config = { effort: 'high' };
+                }
+
+                const assistantIndex = chat.messages.length;
+                chat.messages.push({ role: 'assistant', content: '', model });
+                renderMessages();
+                const els = messagesContainer.querySelectorAll('.message');
+                const assistantEl = els[els.length - 1];
+                let acc = '', firstChunk = true;
+
+                try {
+                    abortController = new AbortController();
+                    const response = await fetch(proxied('/v1/messages?beta=true'), {
+                        method: 'POST', headers: buildHeaders(token, true, model),
+                        body: JSON.stringify(requestBody), signal: abortController.signal,
+                    });
+                    if (!response.ok) {
+                        let errorMsg = `HTTP ${response.status}`, errorData = null;
+                        try { errorData = await response.json(); if (errorData.error) errorMsg += `: ${errorData.error.message || JSON.stringify(errorData.error)}`; } catch (e) { }
+                        if (response.status === 401 || response.status === 403 ||
+                            (errorData && errorData.error && (errorData.error.type === 'authentication_error' || errorData.error.type === 'permission_error' ||
+                                errorData.error.message?.includes('quota') || errorData.error.message?.includes('balance')))) {
+                            throw new Error(`AUTH_ERROR: ${errorMsg}`);
+                        }
+                        throw new Error(errorMsg);
+                    }
+                    const reader = response.body.getReader();
+                    const decoder = new TextDecoder('utf-8');
+                    let buffer = '';
+                    while (true) {
+                        const { done, value } = await reader.read();
+                        if (done) break;
+                        buffer += decoder.decode(value, { stream: true });
+                        const lines = buffer.split('\n'); buffer = lines.pop() || '';
+                        for (const line of lines) {
+                            const t = line.trim();
+                            if (!t.startsWith('data: ')) continue;
+                            const data = t.slice(6).trim();
+                            if (data === '[DONE]') continue;
+                            try {
+                                const parsed = JSON.parse(data);
+                                if (parsed.type === 'content_block_delta' && parsed.delta?.text) {
+                                    acc += parsed.delta.text;
+                                    chat.messages[assistantIndex].content = acc;
+                                    if (assistantEl) assistantEl.innerHTML = `<span class="role-badge">Assistant</span>${escapeHtml(acc)}<span class="stream-cursor"></span><span class="model-badge">${escapeHtml(model)}</span>`;
+                                    scrollToBottom();
+                                    if (firstChunk) { firstChunk = false; updateStatus('⏳ Получение ответа...', 'active'); }
+                                }
+                                if (parsed.type === 'error') throw new Error(parsed.error?.message || 'Ошибка в stream');
+                            } catch (e) { if (e.message && !e.message.includes('JSON') && !e.message.includes('Unexpected')) throw e; }
+                        }
+                    }
+                    // Финализация — рендерим markdown
+                    chat.messages[assistantIndex].content = acc;
+                    if (assistantEl) assistantEl.innerHTML = `<span class="role-badge">Assistant</span><div class="md">${renderMarkdown(acc)}</div><span class="model-badge">${escapeHtml(model)}</span>`;
+                    chat.updatedAt = Date.now();
+                    renderMessages(); // чтобы у нового ответа появились кнопки ✎ / ✕
+                    renderSidebar();
+                    exhaustedTokensByProvider[activeProviderId] = new Set();
+                    updateStatus('✅ Готово', 'active');
+                } catch (error) {
+                    console.error('Ошибка API:', error);
+                    if (chat.messages.length && chat.messages[chat.messages.length - 1].role === 'assistant' && !chat.messages[chat.messages.length - 1].content) chat.messages.pop();
+                    renderMessages();
+                    const errorText = error.message || 'Неизвестная ошибка';
+                    if (isQuotaExhaustedError(errorText)) {
+                        updateStatus(`Лимит ИИ-токенов исчерпан: ${errorText}`, 'error');
+                        const rotated = rotateToNextToken({ preserveCurrent: keepExhaustedTokensEnabled });
+                        if (rotated) {
+                            updateStatus('Повтор с новым токеном...', 'warning');
+                            isStreaming = false;
+                            setTimeout(() => sendMessageToAPI(null), 500);
+                            return;
+                        }
+                        if (keepExhaustedTokensEnabled) {
+                            alert('Токены для этого провайдера закончились!');
+                        } else {
+                            alert('Все токены недоступны. Добавьте новые API-ключи.');
+                        }
+                    } else if (errorText.includes('AUTH_ERROR') || /\b(401|403)\b/.test(errorText)) {
+                        updateStatus(`Ошибка токена: ${errorText}`, 'error');
+                        if (rotateToNextToken()) { updateStatus('Повтор с новым токеном...', 'warning'); isStreaming = false; setTimeout(() => sendMessageToAPI(null), 500); return; }
+                        else alert('Все токены недоступны. Добавьте новые API-ключи.');
+                    } else if (/\b(500|502|503|504)\b/.test(errorText)) {
+                        // Серверная ошибка провайдера — убираем сообщение пользователя из чата
+                        // и возвращаем его текст в поле ввода, чтобы можно было быстро отправить снова.
+                        restoreLastUserMessageToInput(chat);
+                        updateStatus(`⚠️ Сервер недоступен (${errorText}). Текст возвращён в поле ввода — отправьте снова.`, 'warning');
+                    } else {
+                        updateStatus(`❌ Ошибка: ${errorText}`, 'error');
+                        alert(`Ошибка запроса: ${errorText}`);
+                    }
+                } finally {
+                    abortController = null; isStreaming = false; sendBtn.disabled = false;
+                    if (chat.messages.length && chat.messages[chat.messages.length - 1].role === 'assistant' && !chat.messages[chat.messages.length - 1].content) { chat.messages.pop(); renderMessages(); }
+                    persistChats();
+                }
+            }
+
+            // Возвращает последнее сообщение пользователя из чата обратно в поле ввода
+            // (используется при серверных ошибках 500/502, чтобы не терять текст).
+            function restoreLastUserMessageToInput(chat) {
+                if (!chat || !chat.messages) return;
+                let idx = -1;
+                for (let i = chat.messages.length - 1; i >= 0; i--) {
+                    if (chat.messages[i].role === 'user') { idx = i; break; }
+                }
+                if (idx === -1) return;
+                const disp = extractDisplay(chat.messages[idx]);
+                // Не перезаписываем поле, если пользователь уже начал печатать новый текст
+                if (!userInput.value.trim()) {
+                    userInput.value = disp.text || '';
+                    pendingAttachments = (disp.attachments || []).slice();
+                    renderPendingAttachments();
+                }
+                chat.messages.splice(idx, 1);
+                chat.updatedAt = Date.now();
+                renderMessages(); renderSidebar(); persistChats();
+                userInput.focus();
+                userInput.dispatchEvent(new Event('input')); // пересчёт высоты textarea
+            }
+
+            function handleSend() {
+                if (isStreaming) return;
+                const message = userInput.value.trim();
+                if (!message && !pendingAttachments.length) return;
+                if (!tokens.length) { alert('Добавьте API-ключи (кнопка «Токены»).'); return; }
+                const userMessage = buildUserMessage(message, pendingAttachments);
+                userInput.value = ''; userInput.style.height = 'auto';
+                pendingAttachments = []; renderPendingAttachments();
+                sendMessageToAPI(userMessage);
+            }
+
+            // ========================= НАСТРОЙКИ СТИЛЯ =========================
+            const mq = window.matchMedia('(prefers-color-scheme: dark)');
+            function applyTheme() {
+                const t = settings.theme || 'auto';
+                const resolved = t === 'auto' ? (mq.matches ? 'dark' : 'light') : t;
+                document.documentElement.setAttribute('data-theme', resolved);
+                themeOptions.querySelectorAll('.theme-opt').forEach(o => o.classList.toggle('active', o.dataset.themeValue === t));
+            }
+            function applyBackground() {
+                if (settings.bg) {
+                    document.body.style.backgroundImage = `url(${settings.bg})`;
+                    document.body.classList.add('has-bg');
+                    bgPreview.style.backgroundImage = `url(${settings.bg})`;
+                    bgPreview.textContent = '';
+                } else {
+                    document.body.style.backgroundImage = '';
+                    document.body.classList.remove('has-bg');
+                    bgPreview.style.backgroundImage = '';
+                    bgPreview.textContent = 'Фон не задан';
+                }
+            }
+            function loadBackgroundFile(file) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const maxW = 1920;
+                        let { width, height } = img;
+                        if (width > maxW) { height = Math.round(height * maxW / width); width = maxW; }
+                        const canvas = document.createElement('canvas');
+                        canvas.width = width; canvas.height = height;
+                        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+                        settings.bg = canvas.toDataURL('image/jpeg', 0.82);
+                        applyBackground(); persistSettings();
+                        updateStatus('✅ Фон установлен', 'active');
+                    };
+                    img.onerror = () => alert('Не удалось обработать изображение.');
+                    img.src = reader.result;
+                };
+                reader.readAsDataURL(file);
+            }
+
+            // ========================= УТИЛИТЫ =========================
+            function escapeHtml(text) {
+                if (text === null || text === undefined) return '';
+                const div = document.createElement('div');
+                div.textContent = String(text);
+                return div.innerHTML;
+            }
+            function downloadCode(code, lang) {
+                const ext = LANG_EXT[(lang || '').toLowerCase()] || 'txt';
+                const blob = new Blob([code], { type: 'text/plain;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url; a.download = `code.${ext}`;
+                document.body.appendChild(a); a.click(); a.remove();
+                setTimeout(() => URL.revokeObjectURL(url), 1000);
+            }
+
+            // ========================= PWA / АДАПТИВНЫЙ ТУЛБАР =========================
+            // Определяет, запущено ли приложение как установленное PWA (standalone),
+            // и добавляет класс на body — нужно для iOS Safari, где нет display-mode.
+            function detectStandalone() {
+                const standalone = window.matchMedia('(display-mode: standalone)').matches
+                    || window.matchMedia('(display-mode: fullscreen)').matches
+                    || window.navigator.standalone === true;
+                document.body.classList.toggle('pwa-standalone', !!standalone);
+            }
+
+            // Если кнопки в тулбаре переносятся на вторую строку — оставляем только иконки.
+            function updateToolbarDensity() {
+                const toolbar = document.querySelector('.toolbar');
+                if (!toolbar) return;
+                toolbar.classList.remove('icons-only');           // сначала показываем подписи
+                const items = toolbar.children;
+                if (items.length < 2) return;
+                const firstTop = items[0].offsetTop;
+                let wrapped = false;
+                for (let i = 1; i < items.length; i++) {
+                    if (items[i].offsetTop > firstTop + 2) { wrapped = true; break; }
+                }
+                if (wrapped) toolbar.classList.add('icons-only');  // не помещаются — прячем подписи
+            }
+
+            // ========================= ПРИВЕТСТВЕННЫЙ БАННЕР =========================
+            // Показывается один раз при первом открытии. Закрыть вручную нельзя —
+            // баннер закроется автоматически через 3 сек. после клика по ссылке
+            // (Telegram-канал или донат).
+            function setupWelcomeBanner() {
+                const overlay = document.getElementById('welcomeOverlay');
+                const hint = document.getElementById('welcomeHint');
+                if (!overlay) return;
+                if (localStorage.getItem('welcome_seen') === '1') return;
+
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                let closing = false;
+
+                function closeBanner() {
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                    localStorage.setItem('welcome_seen', '1');
+                }
+
+                function startCountdown() {
+                    if (closing) return;
+                    closing = true;
+                    let left = 3;
+                    hint.textContent = `Спасибо! Окно закроется через ${left}…`;
+                    const timer = setInterval(() => {
+                        left--;
+                        if (left > 0) { hint.textContent = `Спасибо! Окно закроется через ${left}…`; }
+                        else { clearInterval(timer); closeBanner(); }
+                    }, 1000);
+                }
+
+                // Клик по ссылке (Telegram/донат) запускает обратный отсчёт.
+                overlay.querySelectorAll('[data-welcome-link]').forEach(a => {
+                    a.addEventListener('click', startCountdown);
+                });
+                // Блокируем закрытие по клику на фон и по Escape.
+                overlay.addEventListener('click', e => { if (e.target === overlay) e.preventDefault(); });
+            }
+
+            // ========================= ИНИЦИАЛИЗАЦИЯ =========================
+            async function init() {
+                loadAll();
+                loadProviders();
+                applyTheme(); applyBackground();
+                updateProviderUI();
+                tokenCount.textContent = tokens.length;
+                keepExhaustedTokens.checked = keepExhaustedTokensEnabled;
+                updateStorageMeter();
+
+                // PWA: помечаем body в standalone-режиме (особенно для iOS Safari)
+                detectStandalone();
+                // Тулбар: переключение в режим «только иконки», если кнопки не помещаются в строку
+                updateToolbarDensity();
+                window.addEventListener('resize', updateToolbarDensity);
+
+                if (!tokens.length) updateStatus('⚠️ Добавьте API-ключи', 'error');
+                if (tokens.length) await fetchAvailableModels(); else updateModelsDropdown();
+
+                const c = getActiveChat();
+                currentModel = c.model || currentModel;
+                if (modelSelect.querySelector(`option[value="${currentModel}"]`)) modelSelect.value = currentModel;
+                else { modelSelect.value = DEFAULT_MODEL; currentModel = DEFAULT_MODEL; }
+
+                renderSidebar(); renderMessages(); renderTokenList();
+                warnIfStorageLow();
+                setupWelcomeBanner();
+
+                // --- Ввод ---
+                sendBtn.addEventListener('click', handleSend);
+                userInput.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); } });
+                const autoGrow = () => {
+                    userInput.style.height = 'auto';
+                    const cap = window.innerHeight * (isMobile() ? 0.65 : 0.5); // растёт почти до самого верха
+                    userInput.style.height = Math.min(userInput.scrollHeight, cap) + 'px';
+                };
+                userInput.addEventListener('input', autoGrow);
+
+                // --- Файлы ---
+                attachBtn.addEventListener('click', () => fileInput.click());
+                fileInput.addEventListener('change', () => { addFiles(fileInput.files); fileInput.value = ''; });
+                userInput.addEventListener('paste', e => {
+                    const items = e.clipboardData && e.clipboardData.items; if (!items) return;
+                    const files = [];
+                    for (const it of items) if (it.kind === 'file') { const f = it.getAsFile(); if (f) files.push(f); }
+                    if (files.length) { e.preventDefault(); addFiles(files); }
+                });
+                let dragDepth = 0;
+                chatArea.addEventListener('dragenter', e => { if (e.dataTransfer && Array.from(e.dataTransfer.types).includes('Files')) { e.preventDefault(); dragDepth++; dropOverlay.classList.add('active'); } });
+                chatArea.addEventListener('dragover', e => { if (e.dataTransfer && Array.from(e.dataTransfer.types).includes('Files')) e.preventDefault(); });
+                chatArea.addEventListener('dragleave', () => { dragDepth = Math.max(0, dragDepth - 1); if (!dragDepth) dropOverlay.classList.remove('active'); });
+                chatArea.addEventListener('drop', e => { e.preventDefault(); dragDepth = 0; dropOverlay.classList.remove('active'); if (e.dataTransfer && e.dataTransfer.files.length) addFiles(e.dataTransfer.files); });
+
+                // --- Код: копировать/скачать (делегирование) ---
+                messagesContainer.addEventListener('click', e => {
+                    const copyBtn = e.target.closest('.code-copy');
+                    const dlBtn = e.target.closest('.code-download');
+                    if (copyBtn) {
+                        const code = copyBtn.closest('.code-block').querySelector('code').textContent;
+                        navigator.clipboard.writeText(code).then(() => { const o = copyBtn.textContent; copyBtn.textContent = '✅ Скопировано'; setTimeout(() => copyBtn.textContent = o, 1500); }).catch(() => alert('Не удалось скопировать.'));
+                    }
+                    if (dlBtn) {
+                        const block = dlBtn.closest('.code-block');
+                        downloadCode(block.querySelector('code').textContent, block.dataset.lang);
+                    }
+                });
+
+                // --- Боковая панель (делегирование) ---
+                chatList.addEventListener('click', e => {
+                    const card = e.target.closest('.chat-card'); if (!card) return;
+                    const id = card.dataset.id;
+                    const act = e.target.closest('[data-act]')?.dataset.act;
+                    if (act === 'pin') { e.stopPropagation(); togglePin(id); }
+                    else if (act === 'delete') { e.stopPropagation(); deleteChat(id); }
+                    else if (act === 'clone') { e.stopPropagation(); cloneChat(id); }
+                    else if (act === 'title' && e.detail >= 2) { /* dblclick обрабатывается ниже */ }
+                    else selectChat(id);
+                });
+                chatList.addEventListener('dblclick', e => {
+                    const titleEl = e.target.closest('.chat-title'); if (!titleEl) return;
+                    const card = e.target.closest('.chat-card');
+                    startRename(card, card.dataset.id);
+                });
+
+                newChatBtn.addEventListener('click', () => createChat(true));
+                toggleSidebarBtn.addEventListener('click', () => app.classList.toggle('sidebar-collapsed'));
+                sidebarBackdrop.addEventListener('click', () => app.classList.add('sidebar-collapsed'));
+
+                // На мобильных сайдбар по умолчанию свёрнут; на десктоп — раскрыт.
+                app.classList.toggle('sidebar-collapsed', isMobile());
+                mqMobile.addEventListener('change', e => app.classList.toggle('sidebar-collapsed', e.matches));
+
+                // --- Токены ---
+            // Клик по иконкам ✎ / ✕ в сообщении
+            messagesContainer.addEventListener('click', e => {
+                const btn = e.target.closest('.msg-action-btn');
+                if (!btn) return;
+                const bubble = btn.closest('.message');
+                if (!bubble || bubble.dataset.index === undefined) return;
+                const index = Number(bubble.dataset.index);
+                if (btn.dataset.act === 'copy') copyMessage(index, btn);
+                else if (btn.dataset.act === 'edit') startEditMessage(index);
+                else if (btn.dataset.act === 'del') deleteMessage(index);
+            });
+            // Двойной клик по облаку с текстом — редактирование (ПК)
+            messagesContainer.addEventListener('dblclick', e => {
+                if (e.target.closest('.msg-edit-area') || e.target.closest('.msg-action-btn')) return;
+                const bubble = e.target.closest('.message');
+                if (!bubble || bubble.dataset.index === undefined) return;
+                if (window.getSelection && String(window.getSelection()).length > 0) window.getSelection().removeAllRanges();
+                startEditMessage(Number(bubble.dataset.index));
+            });
+
+            manageTokensBtn.addEventListener('click', () => { tokenModal.classList.add('active'); renderTokenList(); });
+            addTokensBtn.addEventListener('click', addTokensFromInput);
+            clearTokensBtn.addEventListener('click', clearAllTokens);
+            keepExhaustedTokens.addEventListener('change', () => {
+                keepExhaustedTokensEnabled = keepExhaustedTokens.checked;
+                localStorage.setItem('keep_exhausted_tokens', keepExhaustedTokensEnabled ? '1' : '0');
+                exhaustedTokensByProvider[activeProviderId] = new Set();
+            });
+
+                // --- Модалки: закрытие ---
+                document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => { tokenModal.classList.remove('active'); settingsModal.classList.remove('active'); providerModal.classList.remove('active'); }));
+                [tokenModal, settingsModal, providerModal].forEach(m => m.addEventListener('click', e => { if (e.target === m) m.classList.remove('active'); }));
+
+                // --- Провайдеры ---
+                providerBtn.addEventListener('click', () => { renderProviderList(); providerModal.classList.add('active'); });
+                providerList.addEventListener('click', e => {
+                    // Клик по ссылке в примечании не должен переключать провайдера
+                    if (e.target.closest('a')) { e.stopPropagation(); return; }
+                    const card = e.target.closest('.provider-card'); if (!card) return;
+                    const id = card.dataset.id;
+                    if (e.target.closest('[data-act="del"]')) { e.stopPropagation(); deleteProvider(id); return; }
+                    setActiveProvider(id);
+                });
+                addProviderBtn.addEventListener('click', () => addProvider(newProviderName.value, newProviderUrl.value, newProviderDesc.value));
+                newProviderDesc.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); addProvider(newProviderName.value, newProviderUrl.value, newProviderDesc.value); } });
+
+                // --- Модели ---
+                refreshModelsBtn.addEventListener('click', async () => { if (!tokens.length) { alert('Добавьте API-ключи.'); return; } await fetchAvailableModels(); });
+                modelSelect.addEventListener('change', () => {
+                    currentModel = modelSelect.value;
+                    const chat = getActiveChat(); chat.model = currentModel; persistChats(); persistTokens();
+                    const last = chat.messages[chat.messages.length - 1];
+                    if (last && last.role === 'assistant') { last.model = currentModel; renderMessages(); }
+                });
+
+                // --- Настройки стиля ---
+                settingsBtn.addEventListener('click', () => settingsModal.classList.add('active'));
+                themeOptions.addEventListener('click', e => {
+                    const opt = e.target.closest('.theme-opt'); if (!opt) return;
+                    settings.theme = opt.dataset.themeValue; applyTheme(); persistSettings();
+                });
+                mq.addEventListener('change', applyTheme);
+                chooseBgBtn.addEventListener('click', () => bgFileInput.click());
+                bgFileInput.addEventListener('change', () => { if (bgFileInput.files[0]) loadBackgroundFile(bgFileInput.files[0]); bgFileInput.value = ''; });
+                removeBgBtn.addEventListener('click', () => { settings.bg = ''; applyBackground(); persistSettings(); updateStatus('Фон убран', 'active'); });
+            }
+
+            document.addEventListener('DOMContentLoaded', init);
+        })();
+    </script>
+
+    <!-- ===================== Регистрация Service Worker (PWA) ===================== -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch((err) => {
+                    console.log('[v0] SW registration failed:', err);
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>
