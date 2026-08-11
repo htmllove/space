@@ -1,0 +1,24 @@
+# Batch files
+*.bat
+*.cmd
+
+# System files
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# OS
+.DS_Store
+.Spotlight-V100
+.Trashes
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
