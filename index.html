@@ -17,16 +17,32 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="SoloDev" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
   <meta property="og:title" content="Мой Pet Спэйс">
   <meta property="og:description" content="Галерея моих pet-проектов, сайтов и экспериментальных штук.">
   <meta property="og:url" content="https://space.solodev.ru/">
   <meta property="og:site_name" content="Мой Pet Спэйс">
+  
+  <meta property="og:image" content="https://space.solodev.ru/og-image.jpg">
+  <meta property="og:image:secure_url" content="https://space.solodev.ru/og-image.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Мой Pet Спэйс — галерея pet-проектов">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Мой Pet Спэйс">
   <meta name="twitter:description" content="Галерея моих pet-проектов, сайтов и экспериментальных штук.">
+  <meta name="twitter:image" content="https://space.solodev.ru/og-image.jpg">
+  <meta name="twitter:image:alt" content="Мой Pet Спэйс — галерея pet-проектов">
 
   <script type="application/ld+json">
   {
@@ -427,6 +443,66 @@
     .project-view__loader--hidden {
       display: none;
     }
+    
+    .footer {
+      display: flex;
+      margin-top: clamp(48px, 7vw, 88px);
+      padding: 24px 0 8px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .footer__copyright {
+      margin: 0;
+      color: var(--color-muted);
+      font-size: 0.85rem;
+    }
+
+    .footer__link {
+      display: inline-flex;
+      min-height: 42px;
+      padding: 9px 16px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(121, 255, 242, 0.45);
+      border-radius: 8px;
+      color: var(--color-primary-light);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-decoration: none;
+      background: rgba(57, 197, 187, 0.08);
+      transition:
+        color var(--transition),
+        background var(--transition),
+        border-color var(--transition),
+        transform var(--transition);
+    }
+
+    .footer__link:hover {
+      border-color: var(--color-primary-light);
+      color: var(--color-bg);
+      background: var(--color-primary-light);
+      transform: translateY(-2px);
+    }
+
+    .footer__link:focus-visible {
+      outline: 3px solid rgba(121, 255, 242, 0.3);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 520px) {
+      .footer {
+        align-items: stretch;
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .footer__link {
+        width: 100%;
+      }
+    }
 
     @keyframes spin {
       to { transform: rotate(360deg); }
@@ -511,10 +587,10 @@
 <body>
   <nav class="nav-panel" id="navPanel" aria-label="Навигация по проектам">
     <ul class="nav-panel__list">
-      <li><button class="nav-panel__link" id="allProjects" type="button">Все проекты</button></li>
-      <li><button class="nav-panel__link" id="previousProject" type="button">Предыдущий</button></li>
-      <li><button class="nav-panel__link" id="nextProject" type="button">Следующий</button></li>
-      <li><button class="nav-panel__link" id="randomProject" type="button">Случайный</button></li>
+       <li><button class="nav-panel__link" id="allProjects" type="button">🗂️ Все проекты</button></li>
+       <li><button class="nav-panel__link" id="previousProject" type="button">← Предыдущий</button></li>
+       <li><button class="nav-panel__link" id="nextProject" type="button">Следующий →</button></li>
+       <li><button class="nav-panel__link" id="randomProject" type="button">🎲 Случайный</button></li>
     </ul>
   </nav>
 
@@ -539,6 +615,17 @@
 
       <div class="gallery__grid" id="projectGrid"></div>
     </section>
+    <footer class="footer">
+      <p class="footer__copyright">Сделано с ❤️ &copy; undefined</p>
+
+      <a
+        class="footer__link"
+        href="https://solodev.ru/"
+        aria-label="Перейти на основной сайт solodev.ru"
+      >
+        Перейти на главную
+      </a>
+  </footer>
   </main>
 
   <section class="project-view" id="projectView" aria-label="Открытый проект">
