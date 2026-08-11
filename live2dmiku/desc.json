@@ -1,6 +1,6 @@
 {
-  "title": "MikuClaude",
-  "description": "Мультимодельный адаптивный ИИ ассистент в браузере.",
-  "tags": ["JavaScript", "API", "ИИ", "OnePage"],
-  "category": "Легкие утилиты"
+  "title": "Live2D Model Miku",
+  "description": "Анимированный виджет Live2D с моделью Мику.",
+  "tags": ["JavaScript", "Live2d", "Miku"],
+  "category": "Фансервис <3"
 }
